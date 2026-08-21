@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AdbWirelessToolkitGUI"
+<<<<<<< HEAD
         Title="ADB Wireless Toolkit" Height="600" Width="900"
         WindowStartupLocation="CenterScreen"
         mc:Ignorable="d"
@@ -164,3 +165,11 @@
         </StackPanel>
     </Grid>
 </Window>
+=======
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+
+    </Grid>
+</Window>
+>>>>>>> 905c1d45f6afceab07add5adb142af150af45ca0
