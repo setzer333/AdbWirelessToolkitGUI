@@ -1,0 +1,166 @@
+﻿<Window x:Class="AdbWirelessToolkitGUI.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:AdbWirelessToolkitGUI"
+        Title="ADB Wireless Toolkit" Height="600" Width="900"
+        WindowStartupLocation="CenterScreen"
+        mc:Ignorable="d"
+        Background="#1E1E1E">
+
+    <Window.Resources>
+        <SolidColorBrush x:Key="CardBackgroundColor" Color="#252526"/>
+        <SolidColorBrush x:Key="AccentColor" Color="#0078D4"/>
+        <SolidColorBrush x:Key="TextPrimaryColor" Color="#FFFFFF"/>
+        <SolidColorBrush x:Key="TextSecondaryColor" Color="#B0B0B0"/>
+        <SolidColorBrush x:Key="ButtonBackgroundColor" Color="#3A3A3C"/>
+        <SolidColorBrush x:Key="ButtonHoverColor" Color="#107C10"/>
+        <SolidColorBrush x:Key="ButtonPressedColor" Color="#005A9E"/>
+        <SolidColorBrush x:Key="ProgressBackgroundColor" Color="#3A3A3C"/>
+        <SolidColorBrush x:Key="ProgressForegroundColor" Color="#0078D4"/>
+
+        <Style x:Key="ModernButtonStyle" TargetType="Button">
+            <Setter Property="Height" Value="36"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="FontWeight" Value="Medium"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Background" Value="#3A3A3C"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Margin" Value="0,0,0,8"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="border" 
+                                Background="{TemplateBinding Background}" 
+                                BorderBrush="{TemplateBinding BorderBrush}" 
+                                BorderThickness="{TemplateBinding BorderThickness}" 
+                                CornerRadius="6"
+                                Padding="12,0,12,0">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="#107C10"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="#005A9E"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter TargetName="border" Property="Background" Value="#505055"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="ModernTextBoxStyle" TargetType="TextBox">
+            <Setter Property="FontFamily" Value="Consolas, 'Courier New', monospace"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="Foreground" Value="#CCCCCC"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
+            <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto"/>
+            <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto"/>
+        </Style>
+    </Window.Resources>
+
+    <Grid>
+        <!-- Grid principal con 2 columnas y 3 filas -->
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="200" />
+            <ColumnDefinition Width="1*" />
+        </Grid.ColumnDefinitions>
+
+        <!-- COLUMNA IZQUIERDA: Panel de acciones -->
+        <Border Grid.Row="0" Grid.RowSpan="3" Grid.Column="0" 
+                Background="#252526"
+                Margin="10,10,10,10"
+                CornerRadius="8">
+            <StackPanel VerticalAlignment="Stretch" Margin="15">
+                
+                <!-- Título -->
+                <TextBlock Text="COMANDOS ADB" 
+                           FontSize="14" 
+                           FontWeight="SemiBold" 
+                           Foreground="#707070"
+                           Margin="0,0,0,15"
+                           HorizontalAlignment="Left"/>
+
+                <!-- Botones de acción ADB -->
+                <Button Content="🔍 Escaneo mDNS" 
+                        Style="{StaticResource ModernButtonStyle}" 
+                        Click="MdnsScan_Click"/>
+
+                <Button Content="📱 Emparejar Dispositivo" 
+                        Style="{StaticResource ModernButtonStyle}" 
+                        Click="PairDevice_Click"/>
+
+                <Button Content="🌐 Conectar IP" 
+                        Style="{StaticResource ModernButtonStyle}" 
+                        Click="ConnectIp_Click"/>
+
+                <Button Content="📲 Instalar APK" 
+                        Style="{StaticResource ModernButtonStyle}" 
+                        Click="InstallApk_Click"/>
+
+                <Button Content="📄 Transferir Archivo" 
+                        Style="{StaticResource ModernButtonStyle}" 
+                        Click="TransferFile_Click"/>
+
+                <Button Content="🔄 Reiniciar (Bootloader/Recovery)" 
+                        Style="{StaticResource ModernButtonStyle}" 
+                        Click="RestartBootloader_Click"/>
+            </StackPanel>
+        </Border>
+
+        <!-- COLUMNA DERECHA: Consola de logs -->
+        <Border Grid.Row="0" Grid.Column="1" 
+                Background="#252526"
+                Margin="10,10,10,10"
+                CornerRadius="8">
+            <TextBox x:Name="LogConsole" 
+                     IsReadOnly="True"
+                     Style="{StaticResource ModernTextBoxStyle}"
+                     VerticalScrollBarVisibility="Auto"
+                     Margin="15"
+                     Height="400"/>
+        </Border>
+
+        <!-- FILA INFERIOR: ProgressBar y estado -->
+        <StackPanel Grid.Row="2" Grid.Column="1" 
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Stretch"
+                    Margin="10,0,10,10">
+            
+            <ProgressBar x:Name="TransferProgressBar" 
+                         Width="300" 
+                         Height="20" 
+                         Minimum="0" 
+                         Maximum="100"
+                         Value="0"
+                         Foreground="#0078D4"
+                         Background="#3A3A3C"/>
+
+            <StackPanel VerticalAlignment="Center">
+                <TextBlock x:Name="SpeedTextBlock" 
+                           Text="0 B/s" 
+                           Foreground="#707070"
+                           FontSize="12"/>
+                <TextBlock x:Name="ProgressTextBlock" 
+                           Text="0%" 
+                           Foreground="#707070"
+                           FontSize="12" 
+                           Margin="0,5,0,0"/>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</Window>
