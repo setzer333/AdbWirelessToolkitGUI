@@ -1,15 +1,74 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
+<PropertyGroup>
     <OutputType>WinExe</OutputType>
     <TargetFramework>net8.0-windows</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <UseWPF>true</UseWPF>
-<<<<<<< HEAD
     <ApplicationManifest>app.manifest</ApplicationManifest>
-=======
->>>>>>> 905c1d45f6afceab07add5adb142af150af45ca0
+    <ApplicationIcon>assets\Android-Logo-2008.ico</ApplicationIcon>
+    <TargetPlatformVersion>10.0.26100.0</TargetPlatformVersion>
+    <PackageIcon>Android-Logo-2008.png</PackageIcon>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <NeutralLanguage>es-419</NeutralLanguage>
+    <AssemblyVersion>1.0.0</AssemblyVersion>
+    <FileVersion>1.0.0</FileVersion>
+    <PackageReleaseNotes>Version inicial</PackageReleaseNotes>
+    <PackageTags>adb, usb debug, android, wireless debug, sideload, apk, pair device</PackageTags>
+    <Copyright>Setzer333</Copyright>
+    <Company>Setzer333</Company>
+    <Authors>Setzer333</Authors>
+    <Title>AdbWirelessToolkitGUI</Title>
+    <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
+    <PackageLicenseFile>Combined-License.txt</PackageLicenseFile>
   </PropertyGroup>
+
+  <ItemGroup>
+    <!-- Incluye TODOS los archivos del SDK PlatformTools (binarios, DLLs, configs) -->
+    <Content Include="PlatformTools\**\*">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Visible>false</Visible>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="assets\Android-Logo-2008.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Properties\Settings.Designer.cs">
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="assets\Android-Logo-2008.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+    <None Update="assets\LICENSE-GPL3.rtf">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+    <None Update="assets\LICENSE-MIT.rtf">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+    <None Update="Combined-License.txt">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+    <None Update="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <None Update="README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
 
 </Project>

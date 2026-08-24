@@ -1,0 +1,112 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:system="clr-namespace:System;assembly=mscorlib">
+
+    <!-- Ventana Principal -->
+    <system:String x:Key="AppTitle">ADB Wireless Toolkit</system:String>
+    <system:String x:Key="WirelessConnection">CONEXIÓN INALÁMBRICA</system:String>
+    <system:String x:Key="ScanNetwork">🌐 Escanear Red Local (IPs)</system:String>
+    <system:String x:Key="ScanMdns">🔍 Escaneo mDNS (Nativo)</system:String>
+    <system:String x:Key="PairDevice">📱 Emparejar Dispositivo</system:String>
+    <system:String x:Key="LoadProfile">▼</system:String>
+    <system:String x:Key="LoadProfileTooltip">Perfiles guardados (máx. 10)</system:String>
+    <system:String x:Key="HostPortLabel">HOST:PORT</system:String>
+    <system:String x:Key="HostPortTooltip">Ejemplo: 192.168.1.100:5555</system:String>
+    <system:String x:Key="PairCodeLabel">CÓDIGO DE EMPAREJAMIENTO</system:String>
+    <system:String x:Key="PairCodeTooltip">Código de 6 dígitos mostrado en el dispositivo</system:String>
+    <system:String x:Key="DevicesConnected">📋 Dispositivos Conectados</system:String>
+    <system:String x:Key="RestartServer">🔄 Reiniciar Servidor ADB</system:String>
+    
+    <system:String x:Key="DeviceManagement">GESTIÓN DE DISPOSITIVOS</system:String>
+    <system:String x:Key="InstallApk">📲 Instalar APK</system:String>
+    <system:String x:Key="SideloadApk">📦 Sideload APK (USB)</system:String>
+    <system:String x:Key="TransferFile">📄 Transferir Archivo</system:String>
+    <system:String x:Key="RebootDevice">🔄 Reiniciar Dispositivo (Sistema)</system:String>
+    
+    <system:String x:Key="BackupTools">HERRAMIENTAS DE RESPALDO</system:String>
+    <system:String x:Key="OpenCmd">💻 Abrir CMD Externo</system:String>
+
+    <!-- Consola y Terminal -->
+    <system:String x:Key="LogConsoleTitle">CONSOLA DE LOGS</system:String>
+    <system:String x:Key="ManualTerminal">TERMINAL MANUAL (Comandos ADB directos)</system:String>
+    <system:String x:Key="AdbPrefix">adb </system:String>
+    <system:String x:Key="RunCommand">Ejecutar Comando</system:String>
+
+    <!-- Progreso -->
+    <system:String x:Key="SpeedLabel">0 B/s</system:String>
+    <system:String x:Key="ProgressLabel">0%</system:String>
+
+    <!-- Diálogos y Mensajes -->
+    <system:String x:Key="ErrorEmptyCommand">[MANUAL] Comando vacío. Escribe un comando ADB.</system:String>
+    <system:String x:Key="ErrorHostPortRequired">ERROR: Debe ingresar HOST:PORT (ej: 192.168.1.100:5555)</system:String>
+    <system:String x:Key="ErrorPairCodeRequired">ERROR: Debe ingresar el CÓDIGO DE EMPAREJAMIENTO (6 dígitos)</system:String>
+    <system:String x:Key="ErrorPairCodeFormat">ERROR: El código de emparejamiento debe ser de 6 dígitos numéricos</system:String>
+    <system:String x:Key="ScanningNetwork">=== Escaneando Red Local (Ping .1-.99) ===</system:String>
+    <system:String x:Key="ScanningMdns">=== Escaneo mDNS Nativo (adb mdns services) ===</system:String>
+    <system:String x:Key="PairingDevice">=== Emparejando dispositivo: {0} ===</system:String>
+    <system:String x:Key="PairingCompleted">=== Emparejamiento completado ===</system:String>
+    <system:String x:Key="GettingDevices">=== Obteniendo lista de dispositivos ===</system:String>
+    <system:String x:Key="DevicesObtained">=== Lista de dispositivos obtenida ===</system:String>
+    <system:String x:Key="RestartingServer">=== Reiniciando servidor ADB ===</system:String>
+    <system:String x:Key="StoppingServer">--- Paso 1: Deteniendo servidor (adb kill-server) ---</system:String>
+    <system:String x:Key="Waiting">--- Esperando 1 segundo ---</system:String>
+    <system:String x:Key="StartingServer">--- Paso 2: Iniciando servidor (adb start-server) ---</system:String>
+    <system:String x:Key="ServerRestarted">=== Servidor ADB reiniciado correctamente ===</system:String>
+    <system:String x:Key="InstallingApk">=== Instalando APK: {0} ===</system:String>
+    <system:String x:Key="InstallCompleted">=== Instalación completada ===</system:String>
+    <system:String x:Key="SideloadStarting">=== Iniciando Sideload APK: {0} ===</system:String>
+    <system:String x:Key="SideloadWarning">⚠ Asegúrate de que el dispositivo esté en modo 'Recovery' → 'Apply update from ADB'</system:String>
+    <system:String x:Key="SideloadCompleted">=== Sideload completado ===</system:String>
+    <system:String x:Key="TransferStarting">=== Transfiriendo: {0} -> {1} ===</system:String>
+    <system:String x:Key="TransferCompleted">=== Transferencia completada ===</system:String>
+    <system:String x:Key="Rebooting">=== Reiniciando dispositivo (Sistema) ===</system:String>
+    <system:String x:Key="RebootInitiated">=== Reinicio iniciado ===</system:String>
+    <system:String x:Key="ManualCommand">[MANUAL] adb {0}</system:String>
+    <system:String x:Key="ManualCompleted">[MANUAL] Comando finalizado.</system:String>
+    <system:String x:Key="OperationCancelled">=== Operación cancelada ===</system:String>
+    <system:String x:Key="ErrorPrefix">ERROR: {0}</system:String>
+    <system:String x:Key="CmdOpened">[CMD] Consola externa abierta en: {0}</system:String>
+    <system:String x:Key="CmdError">[CMD] ERROR al abrir consola: {0}</system:String>
+    <system:String x:Key="CmdNotFound">[CMD] ERROR: No se encuentra PlatformTools en: {0}</system:String>
+    <system:String x:Key="NoProfiles">[PERFIL] No hay perfiles guardados. Empareja un dispositivo y guarda el perfil.</system:String>
+    <system:String x:Key="ProfileLoaded">[PERFIL] Cargado: {0}</system:String>
+    <system:String x:Key="ProfileSaved">[PERFIL] Guardado: {0}</system:String>
+    <system:String x:Key="AllProfilesCleared">[PERFIL] Todos los perfiles eliminados</system:String>
+    <system:String x:Key="ScanCompleted">=== Escaneo completado ===</system:String>
+    <system:String x:Key="MdnsScanCompleted">=== Escaneo mDNS finalizado ===</system:String>
+
+    <!-- Ventana Guardar Perfil -->
+    <system:String x:Key="SaveProfileTitle">Guardar Perfil de Emparejamiento</system:String>
+    <system:String x:Key="SaveProfileMessage">El emparejamiento fue exitoso. ¿Deseas guardar este perfil para uso futuro?</system:String>
+    <system:String x:Key="SaveProfileDevice">Dispositivo: {0}</system:String>
+    <system:String x:Key="SaveProfileLimitWarning">⚠ Límite de 10 perfiles alcanzado. Selecciona uno para sobrescribir:</system:String>
+    <system:String x:Key="SaveProfileNameLabel">Nombre del perfil (opcional):</system:String>
+    <system:String x:Key="SaveProfileNameTooltip">Deja vacío para usar solo HOST:PORT como nombre</system:String>
+    <system:String x:Key="SaveProfileOverwriteBtn">Sobrescribir</system:String>
+    <system:String x:Key="SaveProfileSaveBtn">Guardar</system:String>
+    <system:String x:Key="SaveProfileCancelBtn">No guardar</system:String>
+
+    <!-- Menú Perfiles -->
+    <system:String x:Key="ClearAllProfiles">🗑 Limpiar todos los perfiles</system:String>
+    <system:String x:Key="ConfirmClearProfiles">¿Eliminar todos los perfiles guardados?</system:String>
+    <system:String x:Key="ConfirmTitle">Confirmar</system:String>
+
+    <!-- Ventana Acerca de -->
+    <system:String x:Key="AboutTitle">Acerca de ADB Wireless Toolkit</system:String>
+    <system:String x:Key="AboutVersion">Versión 1.0.0</system:String>
+    <system:String x:Key="AboutDescription">Herramienta gráfica moderna para gestión inalámbrica de dispositivos Android vía ADB.\nInterfaz WPF nativa estilo Windows 11 con escaneo de red, emparejamiento, sideload y terminal manual integrado.</system:String>
+    <system:String x:Key="AboutAuthor">Desarrollado por sqnym</system:String>
+    <system:String x:Key="AboutContact">Contacto: sqnyps3@gmail.com (SOLO SUGERENCIAS Y BUGS)</system:String>
+    <system:String x:Key="AboutLicense">Licencia Dual: MIT / GNU GPL v3</system:String>
+    <system:String x:Key="AboutClose">Cerrar</system:String>
+
+    <!-- Configuración -->
+    <system:String x:Key="Language">Idioma</system:String>
+    <system:String x:Key="Language_es_419">Español (Neutro)</system:String>
+    <system:String x:Key="Language_en_US">English (US)</system:String>
+    <system:String x:Key="Language_ru">Русский</system:String>
+    <system:String x:Key="Language_pt_BR">Português (Brasil)</system:String>
+    <system:String x:Key="Language_ja">日本語</system:String>
+    <system:String x:Key="Language_zh_Hans">中文 (简体)</system:String>
+
+</ResourceDictionary>

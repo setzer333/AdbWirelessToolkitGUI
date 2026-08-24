@@ -4,6 +4,12 @@
              xmlns:local="clr-namespace:AdbWirelessToolkitGUI"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <!-- Default language (es-419) - loaded first as fallback -->
+                <ResourceDictionary Source="Languages/es-419.xaml"/>
+                <!-- Current language will be inserted here at runtime -->
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
     </Application.Resources>
 </Application>

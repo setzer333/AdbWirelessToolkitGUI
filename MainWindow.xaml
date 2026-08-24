@@ -4,11 +4,12 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AdbWirelessToolkitGUI"
-<<<<<<< HEAD
-        Title="ADB Wireless Toolkit" Height="600" Width="900"
+        Title="{DynamicResource AppTitle}"
+        Height="820" Width="950"
         WindowStartupLocation="CenterScreen"
         mc:Ignorable="d"
-        Background="#1E1E1E">
+        Background="#1E1E1E"
+        Icon="Assets/Android-Logo-2008.ico">
 
     <Window.Resources>
         <SolidColorBrush x:Key="CardBackgroundColor" Color="#252526"/>
@@ -16,10 +17,10 @@
         <SolidColorBrush x:Key="TextPrimaryColor" Color="#FFFFFF"/>
         <SolidColorBrush x:Key="TextSecondaryColor" Color="#B0B0B0"/>
         <SolidColorBrush x:Key="ButtonBackgroundColor" Color="#3A3A3C"/>
-        <SolidColorBrush x:Key="ButtonHoverColor" Color="#107C10"/>
-        <SolidColorBrush x:Key="ButtonPressedColor" Color="#005A9E"/>
-        <SolidColorBrush x:Key="ProgressBackgroundColor" Color="#3A3A3C"/>
-        <SolidColorBrush x:Key="ProgressForegroundColor" Color="#0078D4"/>
+        <SolidColorBrush x:Key="ButtonHoverColor" Color="#107C10" />
+        <SolidColorBrush x:Key="ButtonPressedColor" Color="#005A9E" />
+        <SolidColorBrush x:Key="ProgressBackgroundColor" Color="#3A3A3C" />
+        <SolidColorBrush x:Key="ProgressForegroundColor" Color="#0078D4" />
 
         <Style x:Key="ModernButtonStyle" TargetType="Button">
             <Setter Property="Height" Value="36"/>
@@ -58,6 +59,13 @@
             </Setter>
         </Style>
 
+        <Style x:Key="SmallButtonStyle" TargetType="Button" BasedOn="{StaticResource ModernButtonStyle}">
+            <Setter Property="Height" Value="28"/>
+            <Setter Property="FontSize" Value="11"/>
+            <Setter Property="Padding" Value="6,0,6,0"/>
+            <Setter Property="Margin" Value="0,0,4,0"/>
+        </Style>
+
         <Style x:Key="ModernTextBoxStyle" TargetType="TextBox">
             <Setter Property="FontFamily" Value="Consolas, 'Courier New', monospace"/>
             <Setter Property="FontSize" Value="12"/>
@@ -67,60 +75,177 @@
             <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto"/>
             <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto"/>
         </Style>
+
+        <Style x:Key="ManualCommandTextBoxStyle" TargetType="TextBox">
+            <Setter Property="FontFamily" Value="Consolas, 'Courier New', monospace"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="Foreground" Value="#CCCCCC"/>
+            <Setter Property="Background" Value="#1A1A1A"/>
+            <Setter Property="BorderBrush" Value="#444444"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="8"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+        </Style>
+
+        <Style x:Key="InputTextBoxStyle" TargetType="TextBox">
+            <Setter Property="FontFamily" Value="Consolas, 'Courier New', monospace"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="Foreground" Value="#CCCCCC"/>
+            <Setter Property="Background" Value="#1A1A1A"/>
+            <Setter Property="BorderBrush" Value="#444444"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="8,6,8,6"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Height" Value="34"/>
+        </Style>
+
+        <Style x:Key="MenuItemStyle" TargetType="MenuItem">
+            <Setter Property="Foreground" Value="#CCCCCC"/>
+            <Setter Property="Background" Value="#252526"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="MenuItem">
+                        <Border x:Name="border" Background="{TemplateBinding Background}" Padding="12,6,12,6">
+                            <ContentPresenter />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsHighlighted" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="#0078D4"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
     </Window.Resources>
 
     <Grid>
-        <!-- Grid principal con 2 columnas y 3 filas -->
         <Grid.RowDefinitions>
             <RowDefinition Height="1*" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="200" />
+            <ColumnDefinition Width="240" />
             <ColumnDefinition Width="1*" />
         </Grid.ColumnDefinitions>
 
         <!-- COLUMNA IZQUIERDA: Panel de acciones -->
-        <Border Grid.Row="0" Grid.RowSpan="3" Grid.Column="0" 
+        <Border Grid.Row="0" Grid.RowSpan="4" Grid.Column="0" 
                 Background="#252526"
                 Margin="10,10,10,10"
                 CornerRadius="8">
-            <StackPanel VerticalAlignment="Stretch" Margin="15">
-                
-                <!-- Título -->
-                <TextBlock Text="COMANDOS ADB" 
-                           FontSize="14" 
-                           FontWeight="SemiBold" 
-                           Foreground="#707070"
-                           Margin="0,0,0,15"
-                           HorizontalAlignment="Left"/>
+            <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+                <StackPanel VerticalAlignment="Stretch" Margin="15">
+                    
+                    <TextBlock Text="{DynamicResource WirelessConnection}" 
+                               FontSize="14" 
+                               FontWeight="SemiBold" 
+                               Foreground="#707070"
+                               Margin="0,0,0,15"
+                               HorizontalAlignment="Left"/>
 
-                <!-- Botones de acción ADB -->
-                <Button Content="🔍 Escaneo mDNS" 
-                        Style="{StaticResource ModernButtonStyle}" 
-                        Click="MdnsScan_Click"/>
+                    <!-- Escanear Red Local -->
+                    <Button x:Name="btnScanNetwork" 
+                            Content="{DynamicResource ScanNetwork}" 
+                            Style="{StaticResource ModernButtonStyle}" 
+                            Click="ScanNetwork_Click"/>
 
-                <Button Content="📱 Emparejar Dispositivo" 
-                        Style="{StaticResource ModernButtonStyle}" 
-                        Click="PairDevice_Click"/>
+                    <!-- mDNS Nativo -->
+                    <Button x:Name="btnScanMdns" 
+                            Content="{DynamicResource ScanMdns}" 
+                            Style="{StaticResource ModernButtonStyle}" 
+                            Click="ScanMdns_Click"
+                            ToolTip="Requiere ADB 34+. Descubre dispositivos con depuración inalámbrica via mDNS"/>
 
-                <Button Content="🌐 Conectar IP" 
-                        Style="{StaticResource ModernButtonStyle}" 
-                        Click="ConnectIp_Click"/>
+                    <!-- Emparejar Dispositivo con campos y menú de perfiles -->
+                    <StackPanel Margin="0,0,0,8">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Button x:Name="btnPairDevice" 
+                                    Grid.Column="0"
+                                    Content="{DynamicResource PairDevice}" 
+                                    Style="{StaticResource ModernButtonStyle}" 
+                                    Click="PairDevice_Click"
+                                    Margin="0,0,0,6"/>
+                            <Button x:Name="btnProfileMenu" 
+                                    Grid.Column="1"
+                                    Content="{DynamicResource LoadProfile}" 
+                                    Style="{StaticResource SmallButtonStyle}" 
+                                    Width="32"
+                                    Height="36"
+                                    Click="ProfileMenu_Click"
+                                    ToolTip="{DynamicResource LoadProfileTooltip}"/>
+                        </Grid>
+                        
+                        <TextBlock Text="{DynamicResource HostPortLabel}" FontSize="11" Foreground="#707070" Margin="0,0,0,2"/>
+                        <TextBox x:Name="txtHostPort" 
+                                 Style="{StaticResource InputTextBoxStyle}"
+                                 ToolTip="{DynamicResource HostPortTooltip}"/>
+                        <TextBlock Text="{DynamicResource PairCodeLabel}" FontSize="11" Foreground="#707070" Margin="0,8,0,2"/>
+                        <TextBox x:Name="txtPairCode" 
+                                 Style="{StaticResource InputTextBoxStyle}"
+                                 ToolTip="{DynamicResource PairCodeTooltip}"/>
+                    </StackPanel>
 
-                <Button Content="📲 Instalar APK" 
-                        Style="{StaticResource ModernButtonStyle}" 
-                        Click="InstallApk_Click"/>
+                    <!-- Dispositivos Conectados -->
+                    <Button x:Name="btnDevices" 
+                            Content="{DynamicResource DevicesConnected}" 
+                            Style="{StaticResource ModernButtonStyle}" 
+                            Click="Devices_Click"/>
 
-                <Button Content="📄 Transferir Archivo" 
-                        Style="{StaticResource ModernButtonStyle}" 
-                        Click="TransferFile_Click"/>
+                    <!-- Reiniciar Servidor ADB -->
+                    <Button x:Name="btnRestartServer" 
+                            Content="{DynamicResource RestartServer}" 
+                            Style="{StaticResource ModernButtonStyle}" 
+                            Click="RestartServer_Click"/>
 
-                <Button Content="🔄 Reiniciar (Bootloader/Recovery)" 
-                        Style="{StaticResource ModernButtonStyle}" 
-                        Click="RestartBootloader_Click"/>
-            </StackPanel>
+                    <Separator Margin="0,15,0,15" Background="#444444"/>
+
+                    <TextBlock Text="{DynamicResource DeviceManagement}" 
+                               FontSize="14" 
+                               FontWeight="SemiBold" 
+                               Foreground="#707070"
+                               Margin="0,0,0,15"
+                               HorizontalAlignment="Left"/>
+
+                    <Button Content="{DynamicResource InstallApk}" 
+                            Style="{StaticResource ModernButtonStyle}" 
+                            Click="InstallApk_Click"/>
+
+                    <Button Content="{DynamicResource SideloadApk}" 
+                            Style="{StaticResource ModernButtonStyle}" 
+                            Click="SideloadApk_Click"/>
+
+                    <Button Content="{DynamicResource TransferFile}" 
+                            Style="{StaticResource ModernButtonStyle}" 
+                            Click="TransferFile_Click"/>
+
+                    <!-- Reiniciar Dispositivo (solo sistema) -->
+                    <Button x:Name="btnReboot" 
+                            Content="{DynamicResource RebootDevice}" 
+                            Style="{StaticResource ModernButtonStyle}" 
+                            Click="Reboot_Click"/>
+
+                    <Separator Margin="0,15,0,15" Background="#444444"/>
+
+                    <TextBlock Text="{DynamicResource BackupTools}" 
+                               FontSize="12" 
+                               FontWeight="SemiBold" 
+                               Foreground="#707070"
+                               Margin="0,0,0,10"
+                               HorizontalAlignment="Left"/>
+
+                    <Button Content="{DynamicResource OpenCmd}" 
+                            Style="{StaticResource ModernButtonStyle}" 
+                            Click="OpenCmd_Click"
+                            Background="#005A9E"/>
+                </StackPanel>
+            </ScrollViewer>
         </Border>
 
         <!-- COLUMNA DERECHA: Consola de logs -->
@@ -136,8 +261,50 @@
                      Height="400"/>
         </Border>
 
+        <!-- TERMINAL MANUAL: Panel para comandos raw -->
+        <Border Grid.Row="1" Grid.Column="1" 
+                Background="#252526"
+                Margin="10,0,10,10"
+                CornerRadius="8"
+                Padding="15">
+            <StackPanel>
+                <TextBlock Text="{DynamicResource ManualTerminal}" 
+                           FontSize="12" 
+                           FontWeight="SemiBold" 
+                           Foreground="#707070"
+                           Margin="0,0,0,8"/>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="{DynamicResource AdbPrefix}" 
+                               Foreground="#0078D4" 
+                               FontFamily="Consolas" 
+                               FontSize="13"
+                               FontWeight="Bold"
+                               VerticalAlignment="Center"
+                               Margin="0,0,8,0"/>
+                    <TextBox x:Name="txtManualCommand" 
+                             Grid.Column="1"
+                             Style="{StaticResource ManualCommandTextBoxStyle}"
+                             Height="32"
+                             KeyDown="txtManualCommand_KeyDown"/>
+                    <Button x:Name="btnRunManual" 
+                            Grid.Column="2"
+                            Content="{DynamicResource RunCommand}"
+                            Style="{StaticResource ModernButtonStyle}"
+                            Width="140"
+                            Height="32"
+                            Margin="8,0,0,0"
+                            Click="RunManualCommand_Click"/>
+                </Grid>
+            </StackPanel>
+        </Border>
+
         <!-- FILA INFERIOR: ProgressBar y estado -->
-        <StackPanel Grid.Row="2" Grid.Column="1" 
+        <StackPanel Grid.Row="3" Grid.Column="1" 
                     Orientation="Horizontal"
                     HorizontalAlignment="Stretch"
                     Margin="10,0,10,10">
@@ -149,15 +316,16 @@
                          Maximum="100"
                          Value="0"
                          Foreground="#0078D4"
-                         Background="#3A3A3C"/>
+                         Background="#3A3A3C"
+                         IsIndeterminate="False"/>
 
-            <StackPanel VerticalAlignment="Center">
+            <StackPanel VerticalAlignment="Center" Margin="10,0,0,0">
                 <TextBlock x:Name="SpeedTextBlock" 
-                           Text="0 B/s" 
+                           Text="{DynamicResource SpeedLabel}" 
                            Foreground="#707070"
                            FontSize="12"/>
                 <TextBlock x:Name="ProgressTextBlock" 
-                           Text="0%" 
+                           Text="{DynamicResource ProgressLabel}" 
                            Foreground="#707070"
                            FontSize="12" 
                            Margin="0,5,0,0"/>
@@ -165,11 +333,3 @@
         </StackPanel>
     </Grid>
 </Window>
-=======
-        mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
-
-    </Grid>
-</Window>
->>>>>>> 905c1d45f6afceab07add5adb142af150af45ca0

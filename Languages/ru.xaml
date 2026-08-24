@@ -1,0 +1,112 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:system="clr-namespace:System;assembly=mscorlib">
+
+    <!-- Главное окно -->
+    <system:String x:Key="AppTitle">ADB Wireless Toolkit</system:String>
+    <system:String x:Key="WirelessConnection">БЕСПРОВОДНОЕ СОЕДИНЕНИЕ</system:String>
+    <system:String x:Key="ScanNetwork">🌐 Сканирование локальной сети (IP)</system:String>
+    <system:String x:Key="ScanMdns">🔍 mDNS сканирование (нативное)</system:String>
+    <system:String x:Key="PairDevice">📱 Сопряжение устройства</system:String>
+    <system:String x:Key="LoadProfile">▼</system:String>
+    <system:String x:Key="LoadProfileTooltip">Сохраненные профили (макс. 10)</system:String>
+    <system:String x:Key="HostPortLabel">HOST:PORT</system:String>
+    <system:String x:Key="HostPortTooltip">Пример: 192.168.1.100:5555</system:String>
+    <system:String x:Key="PairCodeLabel">КОД СОПРЯЖЕНИЯ</system:String>
+    <system:String x:Key="PairCodeTooltip">6-значный код, показанный на устройстве</system:String>
+    <system:String x:Key="DevicesConnected">📋 Подключенные устройства</system:String>
+    <system:String x:Key="RestartServer">🔄 Перезапуск ADB сервера</system:String>
+    
+    <system:String x:Key="DeviceManagement">УПРАВЛЕНИЕ УСТРОЙСТВАМИ</system:String>
+    <system:String x:Key="InstallApk">📲 Установить APK</system:String>
+    <system:String x:Key="SideloadApk">📦 Sideload APK (USB)</system:String>
+    <system:String x:Key="TransferFile">📄 Передать файл</system:String>
+    <system:String x:Key="RebootDevice">🔄 Перезагрузка устройства (Система)</system:String>
+    
+    <system:String x:Key="BackupTools">ИНСТРУМЕНТЫ РЕЗЕРВНОГО КОПИРОВАНИЯ</system:String>
+    <system:String x:Key="OpenCmd">💻 Открыть внешний CMD</system:String>
+
+    <!-- Консоль и терминал -->
+    <system:String x:Key="LogConsoleTitle">КОНСОЛЬ ЛОГОВ</system:String>
+    <system:String x:Key="ManualTerminal">РУЧНОЙ ТЕРМИНАЛ (Прямые ADB команды)</system:String>
+    <system:String x:Key="AdbPrefix">adb </system:String>
+    <system:String x:Key="RunCommand">Выполнить команду</system:String>
+
+    <!-- Прогресс -->
+    <system:String x:Key="SpeedLabel">0 B/s</system:String>
+    <system:String x:Key="ProgressLabel">0%</system:String>
+
+    <!-- Диалоги и сообщения -->
+    <system:String x:Key="ErrorEmptyCommand">[MANUAL] Пустая команда. Введите ADB команду.</system:String>
+    <system:String x:Key="ErrorHostPortRequired">ОШИБКА: Введите HOST:PORT (напр. 192.168.1.100:5555)</system:String>
+    <system:String x:Key="ErrorPairCodeRequired">ОШИБКА: Введите КОД СОПРЯЖЕНИЯ (6 цифр)</system:String>
+    <system:String x:Key="ErrorPairCodeFormat">ОШИБКА: Код сопряжения должен состоять из 6 цифр</system:String>
+    <system:String x:Key="ScanningNetwork">=== Сканирование локальной сети (Ping .1-.99) ===</system:String>
+    <system:String x:Key="ScanningMdns">=== Нативное mDNS сканирование (adb mdns services) ===</system:String>
+    <system:String x:Key="PairingDevice">=== Сопряжение устройства: {0} ===</system:String>
+    <system:String x:Key="PairingCompleted">=== Сопряжение завершено ===</system:String>
+    <system:String x:Key="GettingDevices">=== Получение списка устройств ===</system:String>
+    <system:String x:Key="DevicesObtained">=== Список устройств получен ===</system:String>
+    <system:String x:Key="RestartingServer">=== Перезапуск ADB сервера ===</system:String>
+    <system:String x:Key="StoppingServer">--- Шаг 1: Остановка сервера (adb kill-server) ---</system:String>
+    <system:String x:Key="Waiting">--- Ожидание 1 секунда ---</system:String>
+    <system:String x:Key="StartingServer">--- Шаг 2: Запуск сервера (adb start-server) ---</system:String>
+    <system:String x:Key="ServerRestarted">=== ADB сервер успешно перезапущен ===</system:String>
+    <system:String x:Key="InstallingApk">=== Установка APK: {0} ===</system:String>
+    <system:String x:Key="InstallCompleted">=== Установка завершена ===</system:String>
+    <system:String x:Key="SideloadStarting">=== Запуск Sideload APK: {0} ===</system:String>
+    <system:String x:Key="SideloadWarning">⚠ Убедитесь, что устройство в режиме 'Recovery' → 'Apply update from ADB'</system:String>
+    <system:String x:Key="SideloadCompleted">=== Sideload завершен ===</system:String>
+    <system:String x:Key="TransferStarting">=== Передача: {0} -> {1} ===</system:String>
+    <system:String x:Key="TransferCompleted">=== Передача завершена ===</system:String>
+    <system:String x:Key="Rebooting">=== Перезагрузка устройства (Система) ===</system:String>
+    <system:String x:Key="RebootInitiated">=== Перезагрузка инициирована ===</system:String>
+    <system:String x:Key="ManualCommand">[MANUAL] adb {0}</system:String>
+    <system:String x:Key="ManualCompleted">[MANUAL] Команда выполнена.</system:String>
+    <system:String x:Key="OperationCancelled">=== Операция отменена ===</system:String>
+    <system:String x:Key="ErrorPrefix">ОШИБКА: {0}</system:String>
+    <system:String x:Key="CmdOpened">[CMD] Внешняя консоль открыта в: {0}</system:String>
+    <system:String x:Key="CmdError">[CMD] ОШИБКА открытия консоли: {0}</system:String>
+    <system:String x:Key="CmdNotFound">[CMD] ОШИБКА: PlatformTools не найден: {0}</system:String>
+    <system:String x:Key="NoProfiles">[ПРОФИЛЬ] Нет сохраненных профилей. Сопрягите устройство и сохраните профиль.</system:String>
+    <system:String x:Key="ProfileLoaded">[ПРОФИЛЬ] Загружен: {0}</system:String>
+    <system:String x:Key="ProfileSaved">[ПРОФИЛЬ] Сохранен: {0}</system:String>
+    <system:String x:Key="AllProfilesCleared">[ПРОФИЛЬ] Все профили удалены</system:String>
+    <system:String x:Key="ScanCompleted">=== Сканирование завершено ===</system:String>
+    <system:String x:Key="MdnsScanCompleted">=== mDNS сканирование завершено ===</system:String>
+
+    <!-- Окно сохранения профиля -->
+    <system:String x:Key="SaveProfileTitle">Сохранение профиля сопряжения</system:String>
+    <system:String x:Key="SaveProfileMessage">Сопряжение успешно. Сохранить профиль для будущего использования?</system:String>
+    <system:String x:Key="SaveProfileDevice">Устройство: {0}</system:String>
+    <system:String x:Key="SaveProfileLimitWarning">⚠ Достигнут лимит 10 профилей. Выберите профиль для перезаписи:</system:String>
+    <system:String x:Key="SaveProfileNameLabel">Имя профиля (необязательно):</system:String>
+    <system:String x:Key="SaveProfileNameTooltip">Оставьте пустым для использования только HOST:PORT</system:String>
+    <system:String x:Key="SaveProfileOverwriteBtn">Перезаписать</system:String>
+    <system:String x:Key="SaveProfileSaveBtn">Сохранить</system:String>
+    <system:String x:Key="SaveProfileCancelBtn">Не сохранять</system:String>
+
+    <!-- Меню профилей -->
+    <system:String x:Key="ClearAllProfiles">🗑 Очистить все профили</system:String>
+    <system:String x:Key="ConfirmClearProfiles">Удалить все сохраненные профили?</system:String>
+    <system:String x:Key="ConfirmTitle">Подтверждение</system:String>
+
+    <!-- Окно "О программе" -->
+    <system:String x:Key="AboutTitle">О программе ADB Wireless Toolkit</system:String>
+    <system:String x:Key="AboutVersion">Версия 1.0.0</system:String>
+    <system:String x:Key="AboutDescription">Современный GUI инструмент для беспроводного управления Android устройствами через ADB.\nНативный WPF интерфейс в стиле Windows 11 со сканированием сети, сопряжением, sideload и ручным терминалом.</system:String>
+    <system:String x:Key="AboutAuthor">Разработчик: sqnym</system:String>
+    <system:String x:Key="AboutContact">Контакт: sqnyps3@gmail.com (ТОЛЬКО ПРЕДЛОЖЕНИЯ И БАГИ)</system:String>
+    <system:String x:Key="AboutLicense">Двойная лицензия: MIT / GNU GPL v3</system:String>
+    <system:String x:Key="AboutClose">Закрыть</system:String>
+
+    <!-- Настройки -->
+    <system:String x:Key="Language">Язык</system:String>
+    <system:String x:Key="Language_es_419">Español (Neutro)</system:String>
+    <system:String x:Key="Language_en_US">English (US)</system:String>
+    <system:String x:Key="Language_ru">Русский</system:String>
+    <system:String x:Key="Language_pt_BR">Português (Brasil)</system:String>
+    <system:String x:Key="Language_ja">日本語</system:String>
+    <system:String x:Key="Language_zh_Hans">中文 (简体)</system:String>
+
+</ResourceDictionary>
