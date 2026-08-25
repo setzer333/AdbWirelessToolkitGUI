@@ -71,4 +71,23 @@
     </None>
   </ItemGroup>
 
+  <!-- Include PlatformTools in publish output -->
+  <Target Name="CopyPlatformToolsToPublish" AfterTargets="Publish" BeforeTargets="BuildInstaller" Condition="'$(Configuration)' == 'Release'">
+    <ItemGroup>
+      <PlatformToolsFiles Include="PlatformTools\**\*" />
+      <AssetsFiles Include="Assets\**\*" />
+    </ItemGroup>
+    <Copy SourceFiles="@(PlatformToolsFiles)" DestinationFolder="$(PublishDir)PlatformTools\%(RecursiveDir)" SkipUnchangedFiles="true" />
+    <Copy SourceFiles="@(AssetsFiles)" DestinationFolder="$(PublishDir)Assets\%(RecursiveDir)" SkipUnchangedFiles="true" />
+  </Target>
+
+  <!-- Post-build event: Build Inno Setup installer on Release configuration -->
+  <Target Name="BuildInstaller" AfterTargets="Publish" Condition="'$(Configuration)' == 'Release'">
+    <PropertyGroup>
+      <ISCCPath>"C:\Program Files\Inno Setup 7\ISCC.exe"</ISCCPath>
+      <IssPath>$(ProjectDir)Installer\installer.iss</IssPath>
+    </PropertyGroup>
+    <Exec Command="$(ISCCPath) $(IssPath)" WorkingDirectory="$(ProjectDir)Installer" />
+  </Target>
+
 </Project>

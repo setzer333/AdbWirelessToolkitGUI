@@ -1,16 +1,16 @@
 ================================================================================
-                    AdbWirelessToolkitGUI - LICENCIA DUAL
+                    AdbWirelessToolkitGUI - DUAL LICENSE
 ================================================================================
 
-Este software ("AdbWirelessToolkitGUI") se distribuye bajo un modelo de
-LICENCIA DUAL. Como usuario, puedes elegir bajo CUALQUIERA de las dos
-licencias siguientes para usar, modificar y distribuir este software:
+This software ("AdbWirelessToolkitGUI") is distributed under a DUAL LICENSE model.
+As a user, you may choose under EITHER of the following two licenses to use,
+modify, and distribute this software:
 
-    1. Licencia MIT (Permisiva)           - Ver sección A continuación
-    2. Licencia GNU GPL v3 (Copyleft)     - Ver sección B continuación
+    1. MIT License (Permissive)           - See Section A below
+    2. GNU GPL v3 License (Copyleft)      - See Section B below
 
 ================================================================================
-SECCIÓN A: LICENCIA MIT
+SECTION A: MIT LICENSE
 ================================================================================
 
 MIT License
@@ -36,7 +36,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
 ================================================================================
-SECCIÓN B: LICENCIA GNU GENERAL PUBLIC LICENSE v3.0
+SECTION B: GNU GENERAL PUBLIC LICENSE v3.0
 ================================================================================
 
 GNU GENERAL PUBLIC LICENSE
@@ -485,24 +485,23 @@ limitation of liability may not be enforced.
 END OF TERMS AND CONDITIONS
 
 ================================================================================
-NOTA IMPORTANTE SOBRE LA LICENCIA DUAL
+IMPORTANT NOTE ABOUT DUAL LICENSING
 ================================================================================
 
-Al utilizar, modificar o distribuir AdbWirelessToolkitGUI, USTED ELIGE
-bajo qué licencia operar:
+By using, modifying, or distributing AdbWirelessToolkitGUI, YOU CHOOSE
+under which license to operate:
 
-- Si elige la LICENCIA MIT: Puede usar el código en proyectos
-  propietarios, cerrados o comerciales sin obligación de publicar
-  sus modificaciones. Solo debe mantener el aviso de copyright.
+- If you choose the MIT LICENSE: You may use the code in proprietary,
+  closed-source, or commercial projects without obligation to publish
+  your modifications. You must only retain the copyright notice.
 
-- Si elige la LICENCIA GPL v3: Cualquier trabajo derivado o
-  distribución debe mantenerse bajo GPL v3 y proporcionar el
-  código fuente correspondiente.
+- If you choose the GPL v3 LICENSE: Any derivative work or distribution
+  must remain under GPL v3 and provide the corresponding source code.
 
-La licencia elegida se aplica a SU uso del software. No puede
-mezclar las condiciones de ambas licencias simultáneamente para el
-mismo uso/distribución; debe elegir una u otra.
+The chosen license applies to YOUR use of the software. You cannot
+mix the conditions of both licenses simultaneously for the same
+use/distribution; you must choose one or the other.
 
-Para el texto completo de cada licencia por separado, consulte:
+For the full text of each license separately, see:
 - LICENSE-MIT.txt
 - LICENSE-GPL3.txt
