@@ -1,118 +1,184 @@
 ; =============================================================================
-; installer.iss - Inno Setup Script para AdbWirelessToolkitGUI
-; =============================================================================
-; Compilar con: iscc.exe installer.iss
-; Requiere: Inno Setup 6.2+ (https://jrsoftware.org/isinfo.php)
-; Ejecutar después de: make publish-x64
+; Inno Setup Script for AdbWirelessToolkitGUI
+; Version 1.0 - Dual License (GPLv3 + MIT)
+; Requirements: Inno Setup 7.x
 ; =============================================================================
 
 #define MyAppName "AdbWirelessToolkitGUI"
-#define MyAppVersion "1.0.0"
-#define MyAppPublisher "AdbWirelessToolkitGUI Contributors"
-#define MyAppURL "https://github.com/AdbWirelessToolkitGUI"
+#define MyAppVersion "1.0"
+#define MyAppPublisher "Setzer333"
+#define MyAppPublisherURL "https://github.com/Setzer333"
 #define MyAppExeName "AdbWirelessToolkitGUI.exe"
-#define SourceDir "publish\win-x64"
+#define SourceDir "..\..\AdbWirelessToolkitGUI\publish\win-x64"
 
 [Setup]
-; --- Información básica ---
+AppId={{5B37878B-7880-4B20-A019-8859E176074D}
 AppName={#MyAppName}
 AppVersion={#MyAppVersion}
 AppPublisher={#MyAppPublisher}
-AppPublisherURL={#MyAppURL}
-AppSupportURL={#MyAppURL}
-AppUpdatesURL={#MyAppURL}
+AppPublisherURL={#MyAppPublisherURL}
+AppSupportURL={#MyAppPublisherURL}
+AppUpdatesURL={#MyAppPublisherURL}
 DefaultDirName={autopf}\{#MyAppName}
 DefaultGroupName={#MyAppName}
 OutputDir=Output
-OutputBaseFilename={#MyAppName}_Setup_v{#MyAppVersion}_x64
-SetupIconFile={#SourceDir}\{#MyAppExeName}
+OutputBaseFilename={#MyAppExeName}_Setup_v{#MyAppVersion}_x64
+SetupIconFile=..\..\AdbWirelessToolkitGUI\Assets\Android-Logo-2008.ico
 Compression=lzma2/ultra64
 SolidCompression=yes
 PrivilegesRequired=admin
 ArchitecturesInstallIn64BitMode=x64
 ArchitecturesAllowed=x64
-
-; --- Licencia Dual (MIT / GPLv3) ---
-LicenseFile=Combined-License.txt
-; Obliga a aceptar la licencia antes de continuar
-LicenseAccepted=1
-
-; --- Configuración de instalación ---
-DisableDirPage=no
 DisableProgramGroupPage=no
 AllowNoIcons=yes
 CreateAppDir=yes
-AlwaysShowGroupOnReadyPage=yes
 UsePreviousAppDir=yes
 UsePreviousGroup=yes
 UsePreviousLanguage=yes
 UsePreviousTasks=yes
 
-; --- Internacionalización ---
-LanguageName=Spanish
-LanguageFile=compiler:Languages\Spanish.isl
-
-; --- Ventana ---
-WindowResizable=yes
-WindowMinWidth=500
-WindowMinHeight=400
-WindowShowCaption=yes
-WindowStartMaximized=no
+; Dual License File (GPLv3 + MIT combined)
+LicenseFile=..\..\AdbWirelessToolkitGUI\Combined-License_2.txt
 
 [Languages]
 Name: "spanish"; MessagesFile: "compiler:Languages\Spanish.isl"
+Name: "english"; MessagesFile: "compiler:Default.isl"
+Name: "portuguese"; MessagesFile: "compiler:Languages\Portuguese.isl"
+Name: "russian"; MessagesFile: "compiler:Languages\Russian.isl"
+Name: "japanese"; MessagesFile: "compiler:Languages\Japanese.isl"
+Name: "chinese"; MessagesFile: "compiler:Languages\ChineseSimplified.isl"
 
 [Tasks]
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
-Name: "quicklaunchicon"; Description: "{cm:CreateQuickLaunchIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked; OnlyBelowVersion: 0,6.1
+Name: "startmenuicon"; Description: "Crear acceso directo en el Menú de Inicio"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
+Name: "vcpp_x86"; Description: "Instalar Visual C++ Redistributable (x86)"; GroupDescription: "Visual C++ Redistributable (Opcional)"; Flags: unchecked
+Name: "vcpp_x64"; Description: "Instalar Visual C++ Redistributable (x64)"; GroupDescription: "Visual C++ Redistributable (Opcional)"; Flags: unchecked
+; .NET 8.0.30 Desktop Runtime is mandatory - no checkbox needed
 
 [Files]
-; --- Ejecutable principal ---
+; Main executable (Self-contained single-file)
 Source: "{#SourceDir}\{#MyAppExeName}"; DestDir: "{app}"; Flags: ignoreversion
 
-; --- Carpeta PlatformTools completa (binarios ADB) ---
+; PlatformTools folder (all ADB binaries)
 Source: "{#SourceDir}\PlatformTools\*"; DestDir: "{app}\PlatformTools"; Flags: ignoreversion recursesubdirs createallsubdirs
 
-; --- Documentación y licencias ---
-Source: "LICENSE-MIT.txt"; DestDir: "{app}"; Flags: ignoreversion
-Source: "LICENSE-GPL3.txt"; DestDir: "{app}"; Flags: ignoreversion
-Source: "Combined-License.txt"; DestDir: "{app}"; Flags: ignoreversion
-Source: "README.md"; DestDir: "{app}"; Flags: ignoreversion
+; Assets folder (icon for shortcuts)
+Source: "{#SourceDir}\Assets\*"; DestDir: "{app}\Assets"; Flags: ignoreversion
+
+; RUNTIME folder (VC++ redistributables and .NET runtime URL files)
+Source: "{#SourceDir}\RUNTIME\*"; DestDir: "{app}\RUNTIME"; Flags: ignoreversion recursesubdirs createallsubdirs
+
+; License files
+Source: "..\..\AdbWirelessToolkitGUI\LICENSE-GPL3.txt"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\..\AdbWirelessToolkitGUI\LICENSE-MIT.txt"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\..\AdbWirelessToolkitGUI\Combined-License_2.txt"; DestDir: "{app}"; Flags: ignoreversion
+
+; Documentation
+Source: "..\..\AdbWirelessToolkitGUI\README.md"; DestDir: "{app}"; Flags: ignoreversion
 
 [Icons]
-; --- Accesos directos ---
-Name: "{group}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; WorkingDir: "{app}"; Comment: "Gestión inalámbrica de dispositivos Android vía ADB"
+; Main application shortcut
+Name: "{group}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; WorkingDir: "{app}"; Comment: "Gestión inalámbrica de dispositivos Android vía ADB"; IconFilename: "{app}\Assets\Android-Logo-2008.ico"
+
+; Desktop shortcut (conditional)
+Name: "{commondesktop}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; WorkingDir: "{app}"; Comment: "Gestión inalámbrica de dispositivos Android vía ADB"; IconFilename: "{app}\Assets\Android-Logo-2008.ico"; Tasks: desktopicon
+
+; Start Menu shortcut (conditional)
+Name: "{group}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; WorkingDir: "{app}"; Comment: "Gestión inalámbrica de dispositivos Android vía ADB"; IconFilename: "{app}\Assets\Android-Logo-2008.ico"; Tasks: startmenuicon
+
+; Uninstall shortcut
 Name: "{group}\{cm:UninstallProgram,{#MyAppName}}"; Filename: "{uninstallexe}"; WorkingDir: "{app}"
-Name: "{commondesktop}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; WorkingDir: "{app}"; Comment: "Gestión inalámbrica de dispositivos Android vía ADB"; Tasks: desktopicon
-Name: "{userappdata}\Microsoft\Internet Explorer\Quick Launch\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; WorkingDir: "{app}"; Tasks: quicklaunchicon
 
 [Run]
-; --- Opción para ejecutar al finalizar instalación ---
+; Optional: Launch application after install
 Filename: "{app}\{#MyAppExeName}"; Description: "{cm:LaunchProgram,{#StringChange(MyAppName, '&', '&&')}}"; Flags: nowait postinstall skipifsilent
 
 [UninstallDelete]
-; --- Limpieza completa al desinstalar ---
+; Clean up completely on uninstall
 Type: filesandordirs; Name: "{app}"
 
-[Registry]
-; --- Asociación de archivo .apk opcional (requiere elevación) ---
-; Root: HKCR; Subkey: ".apk"; ValueType: string; ValueData: "AdbWirelessToolkitGUI.APK"; Flags: uninsdeletekey
-; Root: HKCR; Subkey: "AdbWirelessToolkitGUI.APK"; ValueType: string; ValueData: "Android Package (ADB Toolkit)"; Flags: uninsdeletekey
-; Root: HKCR; Subkey: "AdbWirelessToolkitGUI.APK\shell\open\command"; ValueType: string; ValueData: """{app}\{#MyAppExeName}"" ""%1"""; Flags: uninsdeletekey
-
 [InstallDelete]
-; --- Limpiar instalaciones previas corruptas ---
+; Clean temporary files
 Type: files; Name: "{app}\*.tmp"
 
 [Code]
-; --- Personalización de la página de licencia ---
+var
+  DotNetDownloadUrl: String;
+  DotNetInstallerPath: String;
+  DotNetInstalled: Boolean;
+  ResultCode: Integer;
+  VCppX86Path: String;
+  VCppX64Path: String;
+
+function IsDotNet8DesktopRuntimeInstalled(): Boolean; forward;
+
+function InitializeSetup(): Boolean;
+begin
+  Result := True;
+  
+  // Determine architecture and set the appropriate .NET download URL
+  // We always use x64 for the installer since ArchitecturesAllowed=x64
+  DotNetDownloadUrl := 'https://builds.dotnet.microsoft.com/dotnet/WindowsDesktop/8.0.30/windowsdesktop-runtime-8.0.30-win-x64.exe';
+  
+  // Check if .NET 8 Desktop Runtime is already installed
+  DotNetInstalled := IsDotNet8DesktopRuntimeInstalled();
+  
+  if not DotNetInstalled then
+    Log('.NET 8 Desktop Runtime no está instalado.')
+  else
+    Log('.NET 8 Desktop Runtime ya está instalado.');
+  
+  // Set paths to VC++ redistributables (included in the installer)
+  VCppX86Path := ExpandConstant('{app}\RUNTIME\VC_redist.x86.exe');
+  VCppX64Path := ExpandConstant('{app}\RUNTIME\VC_redist.x64.exe');
+  
+  Log('RUTA VC++ x86: ' + VCppX86Path);
+  Log('RUTA VC++ x64: ' + VCppX64Path);
+end;
+
+function IsDotNet8DesktopRuntimeInstalled(): Boolean;
+var
+  RegKey: String;
+  Version: String;
+begin
+  Result := False;
+  
+  // Check for .NET 8 Desktop Runtime in registry
+  RegKey := 'SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\';
+  
+  // Check x64
+  if RegQueryStringValue(HKLM, RegKey + '{8B7C5F8E-5C8E-4F8E-9E5E-5E5E5E5E5E5E}', 'DisplayVersion', Version) then
+  begin
+    if Pos('8.', Version) = 1 then
+    begin
+      Result := True;
+      Exit;
+    end;
+  end;
+  
+  // Alternative check - look for any .NET 8 Desktop Runtime
+  if RegKeyExists(HKLM, 'SOFTWARE\dotnet\Setup\InstalledVersions\x64\sharedfx\Microsoft.WindowsDesktop.App') then
+  begin
+    if RegQueryStringValue(HKLM, 'SOFTWARE\dotnet\Setup\InstalledVersions\x64\sharedfx\Microsoft.WindowsDesktop.App', 'Version', Version) then
+    begin
+      if Pos('8.', Version) = 1 then
+        Result := True;
+    end;
+  end;
+end;
+
+function ShouldSkipPage(PageID: Integer): Boolean;
+begin
+  Result := False;
+end;
+
 procedure InitializeWizard();
 begin
-  // Ajustar tamaño de la ventana del instalador
+  // Adjust wizard size for better license display
   WizardForm.Width := 600;
   WizardForm.Height := 480;
   
-  // Hacer el texto de licencia más legible
+  // Configure license memo for better readability
   with WizardForm.LicenseMemo do
   begin
     Font.Name := 'Consolas';
@@ -120,69 +186,204 @@ begin
     ScrollBars := ssBoth;
     WordWrap := False;
   end;
+  
+  // Set default language to Spanish (index 0 = spanish in our Languages section)
+  // Inno Setup automatically selects first language as default
 end;
 
-; --- Verificar que PlatformTools existe antes de instalar ---
 function NextButtonClick(CurPageID: Integer): Boolean;
 begin
   Result := True;
-  if CurPageID = wpReady then
+  
+  // Validate license acceptance on license page
+  if CurPageID = wpLicense then
   begin
-    if not DirExists(ExpandConstant('{#SourceDir}\PlatformTools')) then
+    if not WizardForm.LicenseAcceptedRadio.Checked then
     begin
-      MsgBox('ERROR: No se encuentra la carpeta PlatformTools en el directorio de publicación.' + #13#10 +
-             'Ejecute "make publish-x64" antes de compilar el instalador.', mbError, MB_OK);
+      MsgBox('Debe aceptar el acuerdo de licencia para continuar.', mbError, MB_OK);
       Result := False;
     end;
   end;
 end;
 
-; --- Verificar .NET Runtime (opcional, solo informativo) ---
-procedure CurStepChanged(CurStep: TSetupStep);
-var
-  NetVersion: String;
+function PrepareToInstall(var NeedsRestart: Boolean): String;
 begin
-  if CurStep = ssPostInstall then
+  Result := '';
+  
+  // Download .NET 8 installer if not already installed (mandatory dependency)
+  if not DotNetInstalled then
   begin
-    // Verificar si .NET 8 Runtime está instalado (solo informativo)
-    if RegQueryStringValue(HKLM, 'SOFTWARE\Microsoft\NET Framework Setup\NDP\v4\Full', 'Version', NetVersion) then
-    begin
-      Log('.NET Framework detectado: ' + NetVersion);
+    Log('Descargando .NET 8 Desktop Runtime (obligatorio)...');
+    
+    // Create temporary file path
+    DotNetInstallerPath := ExpandConstant('{tmp}\windowsdesktop-runtime-8.0.30-win-x64.exe');
+    
+    // Download the installer using PowerShell (more reliable than DownloadTemporaryFile)
+    try
+      Log('Descargando .NET 8 Desktop Runtime desde: ' + DotNetDownloadUrl);
+      if Exec('powershell.exe',
+              '-NoProfile -Command "Invoke-WebRequest -Uri ''' + DotNetDownloadUrl + ''' -OutFile ''' + DotNetInstallerPath + ''' -UseBasicParsing"',
+              '', SW_HIDE, ewWaitUntilTerminated, ResultCode) then
+      begin
+        if ResultCode = 0 then
+        begin
+          if FileExists(DotNetInstallerPath) then
+          begin
+            Log('.NET 8 Desktop Runtime descargado correctamente.');
+          end
+          else
+          begin
+            Log('ERROR: Archivo descargado no encontrado.');
+            MsgBox('No se pudo descargar .NET 8 Desktop Runtime automáticamente.' + #13#10 +
+                   'Por favor, instálelo manualmente desde https://dotnet.microsoft.com/download/dotnet/8.0',
+                   mbError, MB_OK);
+          end;
+        end
+        else
+        begin
+          Log('ERROR: PowerShell devolvió código de salida: ' + IntToStr(ResultCode));
+          MsgBox('No se pudo descargar .NET 8 Desktop Runtime automáticamente.' + #13#10 +
+                 'Por favor, instálelo manualmente desde https://dotnet.microsoft.com/download/dotnet/8.0',
+                 mbError, MB_OK);
+        end;
+      end
+      else
+      begin
+        Log('ERROR: No se pudo ejecutar PowerShell para la descarga.');
+        MsgBox('No se pudo descargar .NET 8 Desktop Runtime automáticamente.' + #13#10 +
+               'Por favor, instálelo manualmente desde https://dotnet.microsoft.com/download/dotnet/8.0',
+               mbError, MB_OK);
+      end;
+    except
+      Log('Excepción al descargar .NET 8: ' + GetExceptionMessage);
     end;
   end;
 end;
 
-; --- Validación de arquitectura ---
-function InitializeSetup(): Boolean;
+procedure CurStepChanged(CurStep: TSetupStep);
 begin
-  Result := True;
-  // Verificar que estamos en Windows 10/11 x64
-  if not IsWin64 then
+  if CurStep = ssPostInstall then
   begin
-    MsgBox('Este instalador requiere Windows de 64 bits (x64).', mbError, MB_OK);
-    Result := False;
-  end;
-  
-  // Verificar versión mínima Windows 10 (10.0.10240)
-  if (GetWindowsVersion < $0A000000) then // Windows 10 = 10.0
-  begin
-    MsgBox('Se requiere Windows 10 o superior.', mbError, MB_OK);
-    Result := False;
+    // 1. Install .NET 8 Desktop Runtime if not already installed (MANDATORY)
+    if not DotNetInstalled then
+    begin
+      if FileExists(DotNetInstallerPath) then
+      begin
+        Log('Instalando .NET 8 Desktop Runtime (obligatorio)...');
+        
+        // Execute the installer silently
+        try
+          if Exec(ExpandConstant('{tmp}\windowsdesktop-runtime-8.0.30-win-x64.exe'), '/install /quiet /norestart', '', SW_HIDE, ewWaitUntilTerminated, ResultCode) then
+          begin
+            Log('.NET 8 Desktop Runtime instalado correctamente (Exit code: ' + IntToStr(ResultCode) + ')');
+          end
+          else
+          begin
+            Log('ERROR al instalar .NET 8 Desktop Runtime (Exit code: ' + IntToStr(ResultCode) + ')');
+            MsgBox('Error al instalar .NET 8 Desktop Runtime automáticamente.' + #13#10 +
+                   'Código de salida: ' + IntToStr(ResultCode) + #13#10 +
+                   'Por favor, instálelo manualmente desde https://dotnet.microsoft.com/download/dotnet/8.0',
+                   mbError, MB_OK);
+          end;
+        except
+          Log('Excepción al instalar .NET 8: ' + GetExceptionMessage);
+          MsgBox('Error inesperado al instalar .NET 8 Desktop Runtime.' + #13#10 +
+                 'Por favor, instálelo manualmente desde https://dotnet.microsoft.com/download/dotnet/8.0',
+                 mbError, MB_OK);
+        end;
+        
+        // Clean up downloaded installer
+        try
+          DeleteFile(DotNetInstallerPath);
+        except
+        end;
+      end
+      else
+      begin
+        Log('ERROR: Archivo de instalación de .NET 8 no encontrado.');
+        MsgBox('No se encontró el instalador de .NET 8. Por favor, instálelo manualmente desde https://dotnet.microsoft.com/download/dotnet/8.0',
+               mbError, MB_OK);
+      end;
+    end;
+    
+    // 2. Install VC++ Redistributable x86 if selected
+    if IsTaskSelected('vcpp_x86') then
+    begin
+      if FileExists(VCppX86Path) then
+      begin
+        Log('Instalando Visual C++ Redistributable x86...');
+        try
+          if Exec(VCppX86Path, '/install /quiet /norestart', '', SW_HIDE, ewWaitUntilTerminated, ResultCode) then
+          begin
+            Log('Visual C++ Redistributable x86 instalado correctamente (Exit code: ' + IntToStr(ResultCode) + ')');
+          end
+          else
+          begin
+            Log('ERROR al instalar Visual C++ Redistributable x86 (Exit code: ' + IntToStr(ResultCode) + ')');
+            MsgBox('Error al instalar Visual C++ Redistributable x86 automáticamente.' + #13#10 +
+                   'Código de salida: ' + IntToStr(ResultCode) + #13#10 +
+                   'Por favor, instálelo manualmente.',
+                   mbError, MB_OK);
+          end;
+        except
+          Log('Excepción al instalar VC++ x86: ' + GetExceptionMessage);
+        end;
+      end
+      else
+      begin
+        Log('ERROR: Archivo VC_redist.x86.exe no encontrado en ' + VCppX86Path);
+      end;
+    end;
+    
+    // 3. Install VC++ Redistributable x64 if selected
+    if IsTaskSelected('vcpp_x64') then
+    begin
+      if FileExists(VCppX64Path) then
+      begin
+        Log('Instalando Visual C++ Redistributable x64...');
+        try
+          if Exec(VCppX64Path, '/install /quiet /norestart', '', SW_HIDE, ewWaitUntilTerminated, ResultCode) then
+          begin
+            Log('Visual C++ Redistributable x64 instalado correctamente (Exit code: ' + IntToStr(ResultCode) + ')');
+          end
+          else
+          begin
+            Log('ERROR al instalar Visual C++ Redistributable x64 (Exit code: ' + IntToStr(ResultCode) + ')');
+            MsgBox('Error al instalar Visual C++ Redistributable x64 automáticamente.' + #13#10 +
+                   'Código de salida: ' + IntToStr(ResultCode) + #13#10 +
+                   'Por favor, instálelo manualmente.',
+                   mbError, MB_OK);
+          end;
+        except
+          Log('Excepción al instalar VC++ x64: ' + GetExceptionMessage);
+        end;
+      end
+      else
+      begin
+        Log('ERROR: Archivo VC_redist.x64.exe no encontrado en ' + VCppX64Path);
+      end;
+    end;
   end;
 end;
 
-; =============================================================================
-; NOTAS DE COMPILACIÓN
-; =============================================================================
-; 1. Ejecutar primero: make publish-x64
-; 2. Luego compilar:   iscc.exe installer.iss
-; 3. Salida:           Output/AdbWirelessToolkitGUI_Setup_v1.0.0_x64.exe
-;
-; El instalador incluye:
-; - Ejecutable Self-Contained Single-File (sin dependencias .NET externas)
-; - Carpeta PlatformTools completa (adb.exe, AdbWinApi.dll, AdbWinUsbApi.dll, fastboot.exe, etc.)
-; - Licencias MIT, GPLv3 y Combined-License.txt
-; - Pantalla de licencia obligatoria (LicenseAccepted=0)
-; - Accesos directos en Menú Inicio, Escritorio (opcional) y Quick Launch (opcional)
-; - Desinstalador limpio
-; =============================================================================
+function NeedRestart(): Boolean;
+begin
+  // .NET 8 typically doesn't require restart, but VC++ might
+  Result := False;
+  if WizardIsTaskSelected('vcpp_x86') or WizardIsTaskSelected('vcpp_x64') then
+  begin
+    Result := True;
+  end;
+end;
+
+procedure DeinitializeSetup();
+begin
+  // Cleanup any remaining temporary files
+  if FileExists(DotNetInstallerPath) then
+  begin
+    try
+      DeleteFile(DotNetInstallerPath);
+    except
+    end;
+  end;
+end;

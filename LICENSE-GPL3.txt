@@ -163,7 +163,7 @@ convey a covered work, you waive any legal power to restrict
 conveying or modifying the covered work in ways that would violate
 applicable laws restricting the circumvention of technological
 measures. You must not intimidate or threaten anyone with a weapon or
-the misuse of legal process to defend or�impose such restrictions.
+the misuse of legal process to defend or impose such restrictions.
 
 4. Conveying Verbatim Copies.
 
@@ -464,7 +464,7 @@ the Free Software Foundation, either version 3 of the License, or
 
 This program is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE. See the
 GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
@@ -489,5 +489,5 @@ to sign a "necessary and sufficient" waiver of copyright in the program,
 if necessary. For a face-to-face program, the appropriate notice might
 be: "This program is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY and FITNESS FOR A PARTICULAR PURPOSE. See the
+MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE. See the
 GNU General Public License for more details."

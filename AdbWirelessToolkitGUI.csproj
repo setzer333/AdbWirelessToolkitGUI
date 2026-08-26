@@ -21,7 +21,7 @@
     <Authors>Setzer333</Authors>
     <Title>AdbWirelessToolkitGUI</Title>
     <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
-    <PackageLicenseFile>Combined-License.txt</PackageLicenseFile>
+    <PackageLicenseFile>Combined-License_2.txt</PackageLicenseFile>
   </PropertyGroup>
 
   <ItemGroup>
@@ -34,6 +34,14 @@
 
   <ItemGroup>
     <Content Include="assets\Android-Logo-2008.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- Include RUNTIME assets (VC++ redistributables and .NET runtime URLs) -->
+    <Content Include="assets\RUNTIME\**\*">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Visible>false</Visible>
+    </Content>
   </ItemGroup>
 
   <ItemGroup>
@@ -57,7 +65,7 @@
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
     </None>
-    <None Update="Combined-License.txt">
+    <None Update="Combined-License_2.txt">
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
     </None>
@@ -71,14 +79,16 @@
     </None>
   </ItemGroup>
 
-  <!-- Include PlatformTools in publish output -->
+  <!-- Include PlatformTools and RUNTIME assets in publish output -->
   <Target Name="CopyPlatformToolsToPublish" AfterTargets="Publish" BeforeTargets="BuildInstaller" Condition="'$(Configuration)' == 'Release'">
     <ItemGroup>
       <PlatformToolsFiles Include="PlatformTools\**\*" />
       <AssetsFiles Include="Assets\**\*" />
+      <RuntimeFiles Include="assets\RUNTIME\**\*" />
     </ItemGroup>
     <Copy SourceFiles="@(PlatformToolsFiles)" DestinationFolder="$(PublishDir)PlatformTools\%(RecursiveDir)" SkipUnchangedFiles="true" />
     <Copy SourceFiles="@(AssetsFiles)" DestinationFolder="$(PublishDir)Assets\%(RecursiveDir)" SkipUnchangedFiles="true" />
+    <Copy SourceFiles="@(RuntimeFiles)" DestinationFolder="$(PublishDir)RUNTIME\%(RecursiveDir)" SkipUnchangedFiles="true" />
   </Target>
 
   <!-- Post-build event: Build Inno Setup installer on Release configuration -->

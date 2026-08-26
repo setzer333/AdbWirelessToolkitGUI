@@ -232,7 +232,7 @@ begin
             Log('ERROR: Archivo descargado no encontrado.');
             MsgBox('No se pudo descargar .NET 8 Desktop Runtime automáticamente.' + #13#10 +
                    'Por favor, instálelo manualmente desde https://dotnet.microsoft.com/download/dotnet/8.0',
-                   MBWarningType(), 0);
+                   mbError, 0);
           end;
         end
         else
@@ -240,7 +240,7 @@ begin
           Log('ERROR: PowerShell devolvió código de salida: ' + IntToStr(ResultCode));
           MsgBox('No se pudo descargar .NET 8 Desktop Runtime automáticamente.' + #13#10 +
                  'Por favor, instálelo manualmente desde https://dotnet.microsoft.com/download/dotnet/8.0',
-                 48, 0);
+                 mbError, 0);
         end;
       end
       else
@@ -248,7 +248,7 @@ begin
         Log('ERROR: No se pudo ejecutar PowerShell para la descarga.');
         MsgBox('No se pudo descargar .NET 8 Desktop Runtime automáticamente.' + #13#10 +
                'Por favor, instálelo manualmente desde https://dotnet.microsoft.com/download/dotnet/8.0',
-               48, 0);
+               mbError, 0);
       end;
     except
       Log('Excepción al descargar .NET 8: ' + GetExceptionMessage);
@@ -267,10 +267,10 @@ begin
       begin
         Log('Instalando .NET 8 Desktop Runtime...');
         
-        // Execute the installer silently
+        
+// Execute the installer silently
         try
-          if Exec(ExpandConstant('"{tmp}\windowsdesktop-runtime-8.0.30-win-x64.exe"'),
-                  '/install /quiet /norestart', '', SW_HIDE, ResultCode) then
+          if Exec(ExpandConstant('{tmp}\windowsdesktop-runtime-8.0.30-win-x64.exe'), '/install /quiet /norestart', '', SW_HIDE, ewWaitUntilTerminated, ResultCode) then
           begin
             Log('.NET 8 Desktop Runtime instalado correctamente (Exit code: ' + IntToStr(ResultCode) + ')');
           end
@@ -280,13 +280,13 @@ begin
             MsgBox('Error al instalar .NET 8 Desktop Runtime automáticamente.' + #13#10 +
                    'Código de salida: ' + IntToStr(ResultCode) + #13#10 +
                    'Por favor, instálelo manualmente desde https://dotnet.microsoft.com/download/dotnet/8.0',
-                   48, 0);
+                   mbError, 0);
           end;
         except
           Log('Excepción al instalar .NET 8: ' + GetExceptionMessage);
           MsgBox('Error inesperado al instalar .NET 8 Desktop Runtime.' + #13#10 +
                  'Por favor, instálelo manualmente desde https://dotnet.microsoft.com/download/dotnet/8.0',
-                 48, 0);
+                 mbError, 0);
         end;
         
         // Clean up downloaded installer

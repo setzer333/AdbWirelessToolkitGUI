@@ -37,8 +37,9 @@
 | **Progreso en Tiempo Real** | Regex robusto captura porcentajes de `adb push`, `adb sideload`, `adb install` |
 | **Terminal Manual** | Ejecuta cualquier comando ADB raw con autocompletado de prefijo `adb` |
 | **CMD Externo** | Abre consola nativa en `PlatformTools/` para control total de emergencia |
-| **Dual License** | MIT (permisiva) o GNU GPL v3 (copyleft) — tú eliges |
-| **Auto-Elevación UAC** | Manifiesto `requireAdministrator` para acceso completo a ADB |
+| **Dual License** | MIT (permisiva) o GNU GPL v3 (copyleft) — Elige una |
+| **Auto-Elevación UAC** | Instalador requiere admin; app se ejecuta como usuario normal |
+| **Telemetría de Errores** | Logging automático de excepciones no controladas en `AdbWirelessToolkitGUI_Log.txt` |
 
 ---
 
@@ -56,6 +57,8 @@
 | **Windows** | 10/11 (x64) | Requiere WPF |
 | **Android SDK Platform-Tools** | Incluido | Carpeta `PlatformTools/` con `adb.exe`, `AdbWinApi.dll`, `AdbWinUsbApi.dll`, `fastboot.exe` |
 | **Dispositivo Android** | Android 5.0+ | Depuración USB/TCP/IP habilitada |
+| **Visual C++ Redistributable** | 2015-2022 | Opcional, instalable desde el instalador |
+| **.NET 8.0.30 Desktop Runtime** | 8.0.30 | Opcional, instalable desde el instalador |
 
 ---
 
@@ -75,6 +78,9 @@ make publish-x86
 
 # Limpiar artefactos
 make clean
+
+# Generar instalador MSI (requiere WiX Toolset)
+make installer
 ```
 
 ### Opción B: Comandos `dotnet` Directos
@@ -97,38 +103,58 @@ dotnet publish -c Release -r win-x86 --self-contained true -p:PublishSingleFile=
 
 # Limpiar
 dotnet clean
+
+# Generar instalador MSI (requiere WiX Toolset)
+dotnet build AdbWirelessToolkitGUI_Installer_Wix/AdbWirelessToolkitGUI_Installer.wixproj -c Release
 ```
 
 ### Estructura de Salida Esperada
 
 ```
 publish/win-x64/
-├── AdbWirelessToolkitGUI.exe          # Ejecutable principal (~15-25 MB)
+├── AdbWirelessToolkitGUI.exe          # Ejecutable principal (~200 MB single-file)
 ├── PlatformTools/                     # Copiado automáticamente
 │   ├── adb.exe
 │   ├── AdbWinApi.dll
 │   ├── AdbWinUsbApi.dll
 │   ├── fastboot.exe
 │   └── ... (resto de binarios)
-└── ...
+├── Assets/                            # Iconos y licencias
+│   ├── Android-Logo-2008.ico
+│   ├── Android-Logo-2008.png
+│   ├── Combined-License_2.txt
+│   ├── LICENSE-GPL3.rtf
+│   └── LICENSE-MIT.rtf
+└── RUNTIME/                           # Dependencias opcionales
+    ├── VC_redist.x86.exe
+    ├── VC_redist.x64.exe
+    ├── windowsdesktop-runtime-8.0.30-win-x86.txt
+    └── windowsdesktop-runtime-8.0.30-win-x64.txt
 ```
 
 ---
 
-## 📦 Crear Instalador (Inno Setup)
+## 📦 Crear Instalador (WiX Toolset)
 
-1. Instala [Inno Setup 6+](https://jrsoftware.org/isdl.php)
-2. Compila en Release para x64: `make publish-x64`
-3. Abre `installer.iss` en Inno Setup Compiler
-4. Presiona **Compile** (Ctrl+F9)
-4. El instalador se genera en `Output/AdbWirelessToolkitGUI_Setup.exe`
+1. Instala [WiX Toolset v7+](https://wixtoolset.org/releases/)
+2. Compila en Release para x64: `dotnet publish -c Release -r win-x64 --self-contained true -p:PublishSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=true -p:PublishTrimmed=false -o ./publish/win-x64`
+3. Compila el proyecto WiX: `dotnet build AdbWirelessToolkitGUI_Installer_Wix/AdbWirelessToolkitGUI_Installer.wixproj -c Release -p:SourceDir=../AdbWirelessToolkitGUI/publish/win-x64`
+4. El instalador se genera en `AdbWirelessToolkitGUI_Installer_Wix/bin/Release/AdbWirelessToolkitGUI_Setup.msi`
 
-El instalador:
-- ✅ Muestra la **licencia dual (MIT/GPLv3)** con aceptación obligatoria
+### El instalador MSI incluye:
+- ✅ **EULA con licencia dual (MIT/GPLv3)** usando `Combined-License_2.txt`
 - ✅ Instala en `Program Files\AdbWirelessToolkitGUI`
 - ✅ Incluye `PlatformTools/` completo
-- ✅ Crea accesos directos en Menú Inicio y Escritorio
+- ✅ **Pantalla de dependencias con 4 checkboxes**:
+  - [ ] Visual C++ Redistributable (x86)
+  - [ ] Visual C++ Redistributable (x64)
+  - [ ] .NET 8.0.30 Desktop Runtime (x86)
+  - [ ] .NET 8.0.30 Desktop Runtime (x64)
+- ✅ Descarga automática de .NET 8.0.30 desde servidores oficiales de Microsoft
+- ✅ Instalación silenciosa de VC++ Redistributables (x86/x64)
+- ✅ Crea accesos directos en Menú Inicio y Escritorio (opcional)
 - ✅ Registra desinstalador en Windows
+- ✅ **EULA unificada** usando `Combined-License_2.txt` (MIT + GPLv3)
 
 ---
 
@@ -193,6 +219,7 @@ El instalador:
 - **`ProfileManager`**: Singleton con `ObservableCollection<DeviceProfile>`, JSON `System.Text.Json`
 - **`SaveProfileWindow`**: Diálogo modal para nombrar/sobrescribir perfiles
 - **ContextMenu dinámico**: Carga perfiles al vuelo desde `ProfileManager.Profiles`
+- **Telemetría de Errores**: Logging global de excepciones en `AdbWirelessToolkitGUI_Log.txt`
 
 ---
 
@@ -200,25 +227,45 @@ El instalador:
 
 ```
 AdbWirelessToolkitGUI/
-├── AdbWirelessToolkitGUI.csproj       # Proyecto .NET 8 WPF
-├── AdbWirelessToolkitGUI.sln          # Solución
-├── MainWindow.xaml                    # UI principal (Windows 11 style)
-├── MainWindow.xaml.cs                 # Code-behind + lógica de comandos
-├── AdbEngine.cs                       # Motor ADB asíncrono + escáner red + mDNS
-├── ProfileManager.cs                  # Gestión de perfiles (JSON en AppData)
-├── app.manifest                       # UAC requireAdministrator
-├── PlatformTools/                     # Binarios ADB (incluidos en build)
+├── AdbWirelessToolkitGUI.csproj              # Proyecto .NET 8 WPF
+├── AdbWirelessToolkitGUI.sln                 # Solución
+├── MainWindow.xaml                           # UI principal (Windows 11 style)
+├── MainWindow.xaml.cs                        # Code-behind + lógica de comandos
+├── App.xaml.cs                               # Punto de entrada + logging global + excepciones
+├── App.xaml                                  # Recursos globales + idiomas
+├── AdbEngine.cs                              # Motor ADB asíncrono + escáner red + mDNS
+├── ProfileManager.cs                         # Gestión de perfiles (JSON en AppData)
+├── AboutWindow.xaml / .cs                    # Ventana "Acerca de"
+├── app.manifest                              # UAC asInvoker (app sin admin)
+├── PlatformTools/                            # Binarios ADB (incluidos en build)
 │   ├── adb.exe
 │   ├── AdbWinApi.dll
 │   ├── AdbWinUsbApi.dll
 │   ├── fastboot.exe
 │   └── ...
-├── LICENSE-MIT.txt                    # Licencia MIT
-├── LICENSE-GPL3.txt                   # Licencia GNU GPL v3
-├── Combined-License.txt               # Licencia dual unificada
-├── README.md                          # Este archivo
-├── Makefile                           # Comandos de build estandarizados
-└── installer.iss                      # Script Inno Setup
+├── Assets/                                   # Iconos y licencias
+│   ├── Android-Logo-2008.ico
+│   ├── Android-Logo-2008.png
+│   ├── LICENSE-GPL3.rtf
+│   ├── LICENSE-MIT.rtf
+│   └── Combined-License_2.txt
+├── assets/RUNTIME/                           # Dependencias empaquetadas
+│   ├── VC_redist.x86.exe
+│   ├── VC_redist.x64.exe
+│   ├── windowsdesktop-runtime-8.0.30-win-x86.txt
+│   └── windowsdesktop-runtime-8.0.30-win-x64.txt
+├── LICENSE-MIT.txt                           # Licencia MIT
+├── LICENSE-GPL3.txt                          # Licencia GNU GPL v3
+├── Combined-License_2.txt                    # Licencia dual unificada (EULA)
+├── README.md                                 # Este archivo
+├── Makefile                                  # Comandos de build estandarizados
+└── AdbWirelessToolkitGUI_Installer_Wix/      # Instalador MSI (WiX Toolset)
+    ├── Product.wxs                           # Definición principal del producto
+    ├── Features.wxs                          # Definición de características
+    ├── Files.wxs                             # Archivos a instalar
+    ├── Dependencies.wxs                      # Dependencias (VC++, .NET)
+    ├── UI.wxs                                # UI personalizada con 4 checkboxes
+    └── AdbWirelessToolkitGUI_Installer.wixproj
 ```
 
 ---
@@ -229,6 +276,7 @@ AdbWirelessToolkitGUI/
 - **`ExecuteCommandAsync`**: Comandos generales con captura stdout/stderr async
 - **`ExecuteTransferAsync`**: Transferencias con parsing de progreso (`\d{1,3}\s*%`)
 - **`ScanLocalNetworkAsync`**: Escaneo concurrente con `System.Net.NetworkInformation.Ping`
+- **`ScanMdnsAsync`**: Escaneo mDNS nativo usando `adb mdns services`
 - **Thread Safety**: Callbacks usan `Dispatcher.BeginInvoke` para actualizar UI
 - **Cancelación**: `CancellationToken` global vinculado a `Window.Closed`
 - **Timeouts**: Configurables por operación (defecto 5 min, install 10 min, push 30 min)
@@ -238,6 +286,16 @@ AdbWirelessToolkitGUI/
 - **ProgressBar + Labels**: Progreso % y velocidad en footer
 - **Estilos Windows 11**: Colores `#1E1E1E`/`#252526`/`#3A3A3C`, acento `#0078D4`
 - **Botones con Template**: Hover/Pressed/Disabled states customizados
+
+### Sistema de Logging Global (`App.xaml.cs`)
+- **Archivo de log**: `AdbWirelessToolkitGUI_Log.txt` (directorio del exe o `%LocalAppData%`)
+- **Eventos capturados**:
+  - `DispatcherUnhandledException` (UI Thread)
+  - `AppDomain.CurrentDomain.UnhandledException` (Non-UI Threads)
+  - `TaskScheduler.UnobservedTaskException` (Background Tasks)
+  - `Application.Current.DispatcherUnhandledException` (WPF UI Exceptions)
+- **Formato de log**: Timestamp, Tipo de excepción, Mensaje, StackTrace completo
+- **Guardado sincronizado** antes de cerrar la aplicación
 
 ---
 
@@ -262,7 +320,7 @@ Este proyecto se distribuye bajo **licencia dual**. Puedes elegir **UNA** de las
 - **Misma licencia** para derivados
 - Ver: [`LICENSE-GPL3.txt`](LICENSE-GPL3.txt)
 
-> **Archivo unificado para instaladores**: [`Combined-License.txt`](Combined-License.txt)
+> **Archivo unificado para instaladores**: [`Combined-License_2.txt`](Combined-License_2.txt)
 
 ---
 
@@ -299,7 +357,7 @@ Plantillas disponibles:
 
 - **Android Open Source Project** - ADB y Platform Tools
 - **.NET Foundation** - Runtime y WPF
-- **Inno Setup** - Jordan Russell - Instalador profesional
+- **WiX Toolset** - Rob Mensching - Instalador MSI profesional
 - **Comunidad Open Source** - Inspiración y feedback
 
 ---
