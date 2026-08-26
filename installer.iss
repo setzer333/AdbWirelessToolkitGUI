@@ -51,9 +51,10 @@ Name: "chinese"; MessagesFile: "compiler:Languages\ChineseSimplified.isl"
 [Tasks]
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
 Name: "startmenuicon"; Description: "Crear acceso directo en el Menú de Inicio"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
-Name: "vcpp_x86"; Description: "Instalar Visual C++ Redistributable (x86)"; GroupDescription: "Visual C++ Redistributable (Opcional)"; Flags: unchecked
+Name: "vcpp_x86"; Description: "Instalar Visual C++ Redistributable (x86)"; GroupDescription: "Visual C++ Redistributable (Incluido offline)"; Flags: unchecked
 Name: "vcpp_x64"; Description: "Instalar Visual C++ Redistributable (x64)"; GroupDescription: "Visual C++ Redistributable (Opcional)"; Flags: unchecked
-; .NET 8.0.30 Desktop Runtime is mandatory - no checkbox needed
+Name: "dotnet_x86"; Description: "Instalar .NET 8.0.30 Desktop Runtime (x86)"; GroupDescription: ".NET 8.0.30 Desktop Runtime (Descarga online)"; Flags: unchecked
+Name: "dotnet_x64"; Description: "Instalar .NET 8.0.30 Desktop Runtime (x64)"; GroupDescription: ".NET 8.0.30 Desktop Runtime (Descarga online)"; Flags: unchecked
 
 [Files]
 ; Main executable (Self-contained single-file)
@@ -104,11 +105,15 @@ Type: files; Name: "{app}\*.tmp"
 [Code]
 var
   DotNetDownloadUrl: String;
+  DotNetDownloadUrlX86: String;
   DotNetInstallerPath: String;
+  DotNetInstallerPathX86: String;
   DotNetInstalled: Boolean;
   ResultCode: Integer;
   VCppX86Path: String;
   VCppX64Path: String;
+  DotNetX86Selected: Boolean;
+  DotNetX64Selected: Boolean;
 
 function IsDotNet8DesktopRuntimeInstalled(): Boolean; forward;
 
@@ -116,9 +121,21 @@ function InitializeSetup(): Boolean;
 begin
   Result := True;
   
-  // Determine architecture and set the appropriate .NET download URL
+  // Determine architecture and set the appropriate .NET download URLs
   // We always use x64 for the installer since ArchitecturesAllowed=x64
   DotNetDownloadUrl := 'https://builds.dotnet.microsoft.com/dotnet/WindowsDesktop/8.0.30/windowsdesktop-runtime-8.0.30-win-x64.exe';
+  DotNetDownloadUrlX86 := 'https://builds.dotnet.microsoft.com/dotnet/WindowsDesktop/8.0.30/windowsdesktop-runtime-8.0.30-win-x86.exe';
+  
+  // Read URLs from text files if they exist
+  if FileExists(ExpandConstant('{src}\RUNTIME\windowsdesktop-runtime-8.0.30-win-x64.txt')) then
+  begin
+    LoadStringFromFile(ExpandConstant('{src}\RUNTIME\windowsdesktop-runtime-8.0.30-win-x64.txt'), DotNetDownloadUrl);
+  end;
+  
+  if FileExists(ExpandConstant('{src}\RUNTIME\windowsdesktop-runtime-8.0.30-win-x86.txt')) then
+  begin
+    LoadStringFromFile(ExpandConstant('{src}\RUNTIME\windowsdesktop-runtime-8.0.30-win-x86.txt'), DotNetDownloadUrlX86);
+  end;
   
   // Check if .NET 8 Desktop Runtime is already installed
   DotNetInstalled := IsDotNet8DesktopRuntimeInstalled();
@@ -134,6 +151,10 @@ begin
   
   Log('RUTA VC++ x86: ' + VCppX86Path);
   Log('RUTA VC++ x64: ' + VCppX64Path);
+  
+  // Read user selections for .NET runtimes
+  DotNetX86Selected := WizardIsTaskSelected('dotnet_x86');
+  DotNetX64Selected := WizardIsTaskSelected('dotnet_x64');
 end;
 
 function IsDotNet8DesktopRuntimeInstalled(): Boolean;
@@ -258,24 +279,40 @@ begin
       Log('Excepción al descargar .NET 8: ' + GetExceptionMessage);
     end;
   end;
+  
+  // Open .NET x86 URL in browser if selected
+  if DotNetX86Selected then
+  begin
+    Log('Abriendo URL de descarga para .NET 8.0.30 Desktop Runtime (x86)...');
+    Exec('cmd.exe', '/c start "" "' + DotNetDownloadUrlX86 + '"', '', SW_HIDE, ewNoWait, ResultCode);
+    Sleep(500); // Small delay to allow browser to open
+  end;
+  
+  // Open .NET x64 URL in browser if selected
+  if DotNetX64Selected then
+  begin
+    Log('Abriendo URL de descarga para .NET 8.0.30 Desktop Runtime (x64)...');
+    Exec('cmd.exe', '/c start "" "' + DotNetDownloadUrl + '"', '', SW_HIDE, ewNoWait, ResultCode);
+    Sleep(500); // Small delay to allow browser to open
+  end;
 end;
 
 procedure CurStepChanged(CurStep: TSetupStep);
 begin
   if CurStep = ssPostInstall then
   begin
-    // 1. Install .NET 8 Desktop Runtime if not already installed (MANDATORY)
+    // 1. Install .NET 8 Desktop Runtime x64 if not already installed (MANDATORY)
     if not DotNetInstalled then
     begin
       if FileExists(DotNetInstallerPath) then
       begin
-        Log('Instalando .NET 8 Desktop Runtime (obligatorio)...');
+        Log('Instalando .NET 8 Desktop Runtime x64 (obligatorio)...');
         
         // Execute the installer silently
         try
           if Exec(ExpandConstant('{tmp}\windowsdesktop-runtime-8.0.30-win-x64.exe'), '/install /quiet /norestart', '', SW_HIDE, ewWaitUntilTerminated, ResultCode) then
           begin
-            Log('.NET 8 Desktop Runtime instalado correctamente (Exit code: ' + IntToStr(ResultCode) + ')');
+            Log('.NET 8 Desktop Runtime x64 instalado correctamente (Exit code: ' + IntToStr(ResultCode) + ')');
           end
           else
           begin
@@ -304,6 +341,100 @@ begin
         MsgBox('No se encontró el instalador de .NET 8. Por favor, instálelo manualmente desde https://dotnet.microsoft.com/download/dotnet/8.0',
                mbError, MB_OK);
       end;
+    end;
+    
+    // 2. Install .NET 8 Desktop Runtime x86 if selected
+    if DotNetX86Selected then
+    begin
+      DotNetInstallerPathX86 := ExpandConstant('{tmp}\windowsdesktop-runtime-8.0.30-win-x86.exe');
+      
+      // Download the x86 installer
+      Log('Descargando .NET 8 Desktop Runtime x86...');
+      try
+        Log('Descargando desde: ' + DotNetDownloadUrlX86);
+        if Exec('powershell.exe',
+                '-NoProfile -Command "Invoke-WebRequest -Uri ''' + DotNetDownloadUrlX86 + ''' -OutFile ''' + DotNetInstallerPathX86 + ''' -UseBasicParsing"',
+                '', SW_HIDE, ewWaitUntilTerminated, ResultCode) then
+        begin
+          if ResultCode = 0 then
+          begin
+            if FileExists(DotNetInstallerPathX86) then
+            begin
+              Log('.NET 8 Desktop Runtime x86 descargado correctamente.');
+            end
+            else
+            begin
+              Log('ERROR: Archivo descargado no encontrado.');
+              MsgBox('No se pudo descargar .NET 8 Desktop Runtime x86 automáticamente.' + #13#10 +
+                     'Por favor, instálelo manualmente desde https://dotnet.microsoft.com/download/dotnet/8.0',
+                     mbError, MB_OK);
+            end;
+          end
+          else
+          begin
+            Log('ERROR: PowerShell devolvió código de salida: ' + IntToStr(ResultCode));
+            MsgBox('No se pudo descargar .NET 8 Desktop Runtime x86 automáticamente.' + #13#10 +
+                   'Por favor, instálelo manualmente desde https://dotnet.microsoft.com/download/dotnet/8.0',
+                   mbError, MB_OK);
+          end;
+        end
+        else
+        begin
+          Log('ERROR: No se pudo ejecutar PowerShell para la descarga.');
+          MsgBox('No se pudo descargar .NET 8 Desktop Runtime x86 automáticamente.' + #13#10 +
+                 'Por favor, instálelo manualmente desde https://dotnet.microsoft.com/download/dotnet/8.0',
+                 mbError, MB_OK);
+        end;
+      except
+        Log('Excepción al descargar .NET 8 x86: ' + GetExceptionMessage);
+      end;
+      
+      if FileExists(DotNetInstallerPathX86) then
+      begin
+        Log('Instalando .NET 8 Desktop Runtime x86...');
+        try
+          if Exec(ExpandConstant('{tmp}\windowsdesktop-runtime-8.0.30-win-x86.exe'), '/install /quiet /norestart', '', SW_HIDE, ewWaitUntilTerminated, ResultCode) then
+          begin
+            Log('.NET 8 Desktop Runtime x86 instalado correctamente (Exit code: ' + IntToStr(ResultCode) + ')');
+          end
+          else
+          begin
+            Log('ERROR al instalar .NET 8 Desktop Runtime x86 (Exit code: ' + IntToStr(ResultCode) + ')');
+            MsgBox('Error al instalar .NET 8 Desktop Runtime x86 automáticamente.' + #13#10 +
+                   'Código de salida: ' + IntToStr(ResultCode) + #13#10 +
+                   'Por favor, instálelo manualmente desde https://dotnet.microsoft.com/download/dotnet/8.0',
+                   mbError, MB_OK);
+          end;
+        except
+          Log('Excepción al instalar .NET 8 x86: ' + GetExceptionMessage);
+          MsgBox('Error inesperado al instalar .NET 8 Desktop Runtime x86.' + #13#10 +
+                 'Por favor, instálelo manualmente desde https://dotnet.microsoft.com/download/dotnet/8.0',
+                 mbError, MB_OK);
+        end;
+        
+        // Clean up downloaded installer
+        try
+          DeleteFile(DotNetInstallerPathX86);
+        except
+        end;
+      end
+      else
+      begin
+        Log('ERROR: Archivo de instalación de .NET 8 x86 no encontrado.');
+        MsgBox('No se encontró el instalador de .NET 8 x86. Por favor, instálelo manualmente desde https://dotnet.microsoft.com/download/dotnet/8.0',
+               mbError, MB_OK);
+      end;
+    end;
+    
+    // 3. .NET 8 Desktop Runtime x64 if selected (in addition to mandatory one)
+    if DotNetX64Selected and not DotNetInstalled then
+    begin
+      // Already handled by mandatory installation above
+      Log('.NET 8 Desktop Runtime x64 ya instalado como dependencia obligatoria.');
+    end
+    else if DotNetX64Selected and DotNetInstalled then
+    begin
+      Log('.NET 8 Desktop Runtime x64 ya está instalado en el sistema.');
     end;
     
     // 2. Install VC++ Redistributable x86 if selected

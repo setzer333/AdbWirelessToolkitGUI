@@ -22,37 +22,64 @@
     <Title>AdbWirelessToolkitGUI</Title>
     <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
     <PackageLicenseFile>Combined-License_2.txt</PackageLicenseFile>
-  </PropertyGroup>
+    <!-- Configuraciones de compilación multi-plataforma -->
+    <Platforms>AnyCPU;x86;x64</Platforms>
+    <RuntimeIdentifiers>win-x86;win-x64;win-arm64</RuntimeIdentifiers>
+</PropertyGroup>
 
-  <ItemGroup>
+<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x86'">
+    <PlatformTarget>x86</PlatformTarget>
+    <SelfContained>true</SelfContained>
+    <PublishSingleFile>true</PublishSingleFile>
+    <RuntimeIdentifier>win-x86</RuntimeIdentifier>
+    <PublishTrimmed>false</PublishTrimmed>
+</PropertyGroup>
+
+<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <PlatformTarget>x64</PlatformTarget>
+    <SelfContained>true</SelfContained>
+    <PublishSingleFile>true</PublishSingleFile>
+    <RuntimeIdentifier>win-x64</RuntimeIdentifier>
+    <PublishTrimmed>false</PublishTrimmed>
+</PropertyGroup>
+
+<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <SelfContained>true</SelfContained>
+    <PublishSingleFile>true</PublishSingleFile>
+    <RuntimeIdentifier>win-x64</RuntimeIdentifier>
+    <PublishTrimmed>false</PublishTrimmed>
+</PropertyGroup>
+
+<ItemGroup>
     <!-- Incluye TODOS los archivos del SDK PlatformTools (binarios, DLLs, configs) -->
     <Content Include="PlatformTools\**\*">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <Visible>false</Visible>
     </Content>
-  </ItemGroup>
+</ItemGroup>
 
-  <ItemGroup>
+<ItemGroup>
     <Content Include="assets\Android-Logo-2008.ico" />
-  </ItemGroup>
+</ItemGroup>
 
-  <ItemGroup>
+<ItemGroup>
     <!-- Include RUNTIME assets (VC++ redistributables and .NET runtime URLs) -->
     <Content Include="assets\RUNTIME\**\*">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <Visible>false</Visible>
     </Content>
-  </ItemGroup>
+</ItemGroup>
 
-  <ItemGroup>
+<ItemGroup>
     <Compile Update="Properties\Settings.Designer.cs">
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <AutoGen>True</AutoGen>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
-  </ItemGroup>
+</ItemGroup>
 
-  <ItemGroup>
+<ItemGroup>
     <None Update="assets\Android-Logo-2008.png">
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
@@ -77,10 +104,10 @@
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
     </None>
-  </ItemGroup>
+</ItemGroup>
 
-  <!-- Include PlatformTools and RUNTIME assets in publish output -->
-  <Target Name="CopyPlatformToolsToPublish" AfterTargets="Publish" BeforeTargets="BuildInstaller" Condition="'$(Configuration)' == 'Release'">
+<!-- Include PlatformTools and RUNTIME assets in publish output -->
+<Target Name="CopyPlatformToolsToPublish" AfterTargets="Publish" BeforeTargets="BuildInstaller" Condition="'$(Configuration)' == 'Release'">
     <ItemGroup>
       <PlatformToolsFiles Include="PlatformTools\**\*" />
       <AssetsFiles Include="Assets\**\*" />
@@ -89,15 +116,15 @@
     <Copy SourceFiles="@(PlatformToolsFiles)" DestinationFolder="$(PublishDir)PlatformTools\%(RecursiveDir)" SkipUnchangedFiles="true" />
     <Copy SourceFiles="@(AssetsFiles)" DestinationFolder="$(PublishDir)Assets\%(RecursiveDir)" SkipUnchangedFiles="true" />
     <Copy SourceFiles="@(RuntimeFiles)" DestinationFolder="$(PublishDir)RUNTIME\%(RecursiveDir)" SkipUnchangedFiles="true" />
-  </Target>
+</Target>
 
-  <!-- Post-build event: Build Inno Setup installer on Release configuration -->
-  <Target Name="BuildInstaller" AfterTargets="Publish" Condition="'$(Configuration)' == 'Release'">
+<!-- Post-build event: Build Inno Setup installer on Release configuration -->
+<Target Name="BuildInstaller" AfterTargets="Publish" Condition="'$(Configuration)' == 'Release'">
     <PropertyGroup>
       <ISCCPath>"C:\Program Files\Inno Setup 7\ISCC.exe"</ISCCPath>
       <IssPath>$(ProjectDir)Installer\installer.iss</IssPath>
     </PropertyGroup>
     <Exec Command="$(ISCCPath) $(IssPath)" WorkingDirectory="$(ProjectDir)Installer" />
-  </Target>
+</Target>
 
 </Project>

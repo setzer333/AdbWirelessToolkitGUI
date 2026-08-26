@@ -261,6 +261,9 @@ UpgradeLog*.htm
 ServiceFabricBackup/
 *.rptproj.bak
 
+# Backup folder for pre-refactor state
+_Backup_Pre_Refactor/
+
 # SQL Server files
 *.mdf
 *.ldf
