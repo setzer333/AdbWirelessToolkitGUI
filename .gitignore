@@ -263,6 +263,7 @@ ServiceFabricBackup/
 
 # Backup folder for pre-refactor state
 _Backup_Pre_Refactor/
+DIAG.MD
 
 # SQL Server files
 *.mdf
