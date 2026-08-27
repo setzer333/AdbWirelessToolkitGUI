@@ -5,7 +5,7 @@
 ; =============================================================================
 
 #define MyAppName "AdbWirelessToolkitGUI"
-#define MyAppVersion "1.0"
+#define MyAppVersion "1.0.0"
 #define MyAppPublisher "Setzer333"
 #define MyAppPublisherURL "https://github.com/Setzer333"
 #define MyAppExeName "AdbWirelessToolkitGUI.exe"
@@ -22,14 +22,14 @@ AppUpdatesURL={#MyAppPublisherURL}
 DefaultDirName={autopf}\{#MyAppName}
 DefaultGroupName={#MyAppName}
 OutputDir=Output
-OutputBaseFilename={#MyAppExeName}_Setup_v{#MyAppVersion}_x64
-SetupIconFile=..\..\AdbWirelessToolkitGUI\Assets\Android-Logo-2008.ico
+OutputBaseFilename=AdbWirelessToolkitGUI_Setup_x64
+SetupIconFile=..\..\AdbWirelessToolkitGUI\assets\Android-Logo-2008.ico
 Compression=lzma2/ultra64
 SolidCompression=yes
 PrivilegesRequired=admin
 ArchitecturesInstallIn64BitMode=x64
-ArchitecturesAllowed=x64compatiblecompatible
-DisableProgramGroupPage=no
+ArchitecturesAllowed=x64compatible
+DisableProgramGroupPage=yes
 AllowNoIcons=yes
 CreateAppDir=yes
 UsePreviousAppDir=yes
@@ -153,8 +153,8 @@ begin
   Log('RUTA VC++ x64: ' + VCppX64Path);
   
   // Read user selections for .NET runtimes
-  DotNetX86Selected := WizardWizardIsTaskSelected('dotnet_x86');
-  DotNetX64Selected := WizardWizardIsTaskSelected('dotnet_x64');
+  DotNetX86Selected := WizardIsTaskSelected('dotnet_x86');
+  DotNetX64Selected := WizardIsTaskSelected('dotnet_x64');
 end;
 
 function IsDotNet8DesktopRuntimeInstalled(): Boolean;
@@ -421,7 +421,8 @@ begin
       else
       begin
         Log('ERROR: Archivo de instalación de .NET 8 x86 no encontrado.');
-        MsgBox('No se encontró el instalador de .NET 8 x86. Por favor, instálelo manualmente desde https://dotnet.microsoft.com/download/dotnet/8.0',
+        MsgBox('No se pudo descargar .NET 8 Desktop Runtime x86 automáticamente.' + #13#10 +
+               'Por favor, instálelo manualmente desde https://dotnet.microsoft.com/download/dotnet/8.0',
                mbError, MB_OK);
       end;
     end;
@@ -501,7 +502,7 @@ function NeedRestart(): Boolean;
 begin
   // .NET 8 typically doesn't require restart, but VC++ might
   Result := False;
-  if WizardWizardIsTaskSelected('vcpp_x86') or WizardWizardIsTaskSelected('vcpp_x64') then
+  if WizardIsTaskSelected('vcpp_x86') or WizardIsTaskSelected('vcpp_x64') then
   begin
     Result := True;
   end;
@@ -514,6 +515,14 @@ begin
   begin
     try
       DeleteFile(DotNetInstallerPath);
+    except
+    end;
+  end;
+  
+  if FileExists(DotNetInstallerPathX86) then
+  begin
+    try
+      DeleteFile(DotNetInstallerPathX86);
     except
     end;
   end;
