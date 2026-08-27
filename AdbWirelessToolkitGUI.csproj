@@ -60,7 +60,45 @@
 </ItemGroup>
 
 <ItemGroup>
-    <Resource Include="assets\Android-Logo-2008.ico" />
+    <Content Include="assets\Android-Logo-2008.ico">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="assets\Android-Logo-2008.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="assets\Combined-License_2.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="assets\VC_redist.x64.exe">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="assets\VC_redist.x86.exe">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="assets\windowsdesktop-runtime-8.0.30-win-x64.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="assets\windowsdesktop-runtime-8.0.30-win-x86.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Languages\en-US.xaml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Languages\es-419.xaml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Languages\ja.xaml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Languages\pt-BR.xaml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Languages\ru.xaml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Languages\zh-Hans.xaml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
 </ItemGroup>
 
 <ItemGroup>
@@ -69,6 +107,24 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <Visible>false</Visible>
     </Content>
+</ItemGroup>
+
+<ItemGroup>
+  <None Remove="assets\Android-Logo-2008.png" />
+  <None Remove="assets\Combined-License_2.txt" />
+  <None Remove="assets\VC_redist.x64.exe" />
+  <None Remove="assets\VC_redist.x86.exe" />
+  <None Remove="assets\windowsdesktop-runtime-8.0.30-win-x64.txt" />
+  <None Remove="assets\windowsdesktop-runtime-8.0.30-win-x86.txt" />
+</ItemGroup>
+
+<ItemGroup>
+  <Page Remove="Languages\en-US.xaml" />
+  <Page Remove="Languages\es-419.xaml" />
+  <Page Remove="Languages\ja.xaml" />
+  <Page Remove="Languages\pt-BR.xaml" />
+  <Page Remove="Languages\ru.xaml" />
+  <Page Remove="Languages\zh-Hans.xaml" />
 </ItemGroup>
 
 <ItemGroup>
