@@ -1,0 +1,112 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:system="clr-namespace:System;assembly=mscorlib">
+
+    <!-- Main Window -->
+    <system:String x:Key="AppTitle">ADB Wireless Toolkit</system:String>
+    <system:String x:Key="WirelessConnection">WIRELESS CONNECTION</system:String>
+    <system:String x:Key="ScanNetwork">🌐 Scan Local Network (IPs)</system:String>
+    <system:String x:Key="ScanMdns">🔍 mDNS Scan (Native)</system:String>
+    <system:String x:Key="PairDevice">📱 Pair Device</system:String>
+    <system:String x:Key="LoadProfile">▼</system:String>
+    <system:String x:Key="LoadProfileTooltip">Saved profiles (max 10)</system:String>
+    <system:String x:Key="HostPortLabel">HOST:PORT</system:String>
+    <system:String x:Key="HostPortTooltip">Example: 192.168.1.100:5555</system:String>
+    <system:String x:Key="PairCodeLabel">PAIRING CODE</system:String>
+    <system:String x:Key="PairCodeTooltip">6-digit code shown on device</system:String>
+    <system:String x:Key="DevicesConnected">📋 Connected Devices</system:String>
+    <system:String x:Key="RestartServer">🔄 Restart ADB Server</system:String>
+    
+    <system:String x:Key="DeviceManagement">DEVICE MANAGEMENT</system:String>
+    <system:String x:Key="InstallApk">📲 Install APK</system:String>
+    <system:String x:Key="SideloadApk">📦 Sideload APK (USB)</system:String>
+    <system:String x:Key="TransferFile">📄 Transfer File</system:String>
+    <system:String x:Key="RebootDevice">🔄 Reboot Device (System)</system:String>
+    
+    <system:String x:Key="BackupTools">BACKUP TOOLS</system:String>
+    <system:String x:Key="OpenCmd">💻 Open External CMD</system:String>
+
+    <!-- Console and Terminal -->
+    <system:String x:Key="LogConsoleTitle">LOG CONSOLE</system:String>
+    <system:String x:Key="ManualTerminal">MANUAL TERMINAL (Raw ADB Commands)</system:String>
+    <system:String x:Key="AdbPrefix">adb </system:String>
+    <system:String x:Key="RunCommand">Run Command</system:String>
+
+    <!-- Progress -->
+    <system:String x:Key="SpeedLabel">0 B/s</system:String>
+    <system:String x:Key="ProgressLabel">0%</system:String>
+
+    <!-- Dialogs and Messages -->
+    <system:String x:Key="ErrorEmptyCommand">[MANUAL] Empty command. Enter an ADB command.</system:String>
+    <system:String x:Key="ErrorHostPortRequired">ERROR: Must enter HOST:PORT (e.g., 192.168.1.100:5555)</system:String>
+    <system:String x:Key="ErrorPairCodeRequired">ERROR: Must enter PAIRING CODE (6 digits)</system:String>
+    <system:String x:Key="ErrorPairCodeFormat">ERROR: Pairing code must be 6 numeric digits</system:String>
+    <system:String x:Key="ScanningNetwork">=== Scanning Local Network (Ping .1-.99) ===</system:String>
+    <system:String x:Key="ScanningMdns">=== Native mDNS Scan (adb mdns services) ===</system:String>
+    <system:String x:Key="PairingDevice">=== Pairing device: {0} ===</system:String>
+    <system:String x:Key="PairingCompleted">=== Pairing completed ===</system:String>
+    <system:String x:Key="GettingDevices">=== Getting device list ===</system:String>
+    <system:String x:Key="DevicesObtained">=== Device list obtained ===</system:String>
+    <system:String x:Key="RestartingServer">=== Restarting ADB server ===</system:String>
+    <system:String x:Key="StoppingServer">--- Step 1: Stopping server (adb kill-server) ---</system:String>
+    <system:String x:Key="Waiting">--- Waiting 1 second ---</system:String>
+    <system:String x:Key="StartingServer">--- Step 2: Starting server (adb start-server) ---</system:String>
+    <system:String x:Key="ServerRestarted">=== ADB server restarted successfully ===</system:String>
+    <system:String x:Key="InstallingApk">=== Installing APK: {0} ===</system:String>
+    <system:String x:Key="InstallCompleted">=== Installation completed ===</system:String>
+    <system:String x:Key="SideloadStarting">=== Starting Sideload APK: {0} ===</system:String>
+    <system:String x:Key="SideloadWarning">⚠ Ensure device is in 'Recovery' → 'Apply update from ADB' mode</system:String>
+    <system:String x:Key="SideloadCompleted">=== Sideload completed ===</system:String>
+    <system:String x:Key="TransferStarting">=== Transferring: {0} -> {1} ===</system:String>
+    <system:String x:Key="TransferCompleted">=== Transfer completed ===</system:String>
+    <system:String x:Key="Rebooting">=== Rebooting device (System) ===</system:String>
+    <system:String x:Key="RebootInitiated">=== Reboot initiated ===</system:String>
+    <system:String x:Key="ManualCommand">[MANUAL] adb {0}</system:String>
+    <system:String x:Key="ManualCompleted">[MANUAL] Command finished.</system:String>
+    <system:String x:Key="OperationCancelled">=== Operation cancelled ===</system:String>
+    <system:String x:Key="ErrorPrefix">ERROR: {0}</system:String>
+    <system:String x:Key="CmdOpened">[CMD] External console opened at: {0}</system:String>
+    <system:String x:Key="CmdError">[CMD] ERROR opening console: {0}</system:String>
+    <system:String x:Key="CmdNotFound">[CMD] ERROR: PlatformTools not found at: {0}</system:String>
+    <system:String x:Key="NoProfiles">[PROFILE] No saved profiles. Pair a device and save the profile.</system:String>
+    <system:String x:Key="ProfileLoaded">[PROFILE] Loaded: {0}</system:String>
+    <system:String x:Key="ProfileSaved">[PROFILE] Saved: {0}</system:String>
+    <system:String x:Key="AllProfilesCleared">[PROFILE] All profiles cleared</system:String>
+    <system:String x:Key="ScanCompleted">=== Scan completed ===</system:String>
+    <system:String x:Key="MdnsScanCompleted">=== mDNS scan finished ===</system:String>
+
+    <!-- Save Profile Window -->
+    <system:String x:Key="SaveProfileTitle">Save Pairing Profile</system:String>
+    <system:String x:Key="SaveProfileMessage">Pairing successful. Save this profile for future use?</system:String>
+    <system:String x:Key="SaveProfileDevice">Device: {0}</system:String>
+    <system:String x:Key="SaveProfileLimitWarning">⚠ Limit of 10 profiles reached. Select one to overwrite:</system:String>
+    <system:String x:Key="SaveProfileNameLabel">Profile name (optional):</system:String>
+    <system:String x:Key="SaveProfileNameTooltip">Leave empty to use only HOST:PORT as name</system:String>
+    <system:String x:Key="SaveProfileOverwriteBtn">Overwrite</system:String>
+    <system:String x:Key="SaveProfileSaveBtn">Save</system:String>
+    <system:String x:Key="SaveProfileCancelBtn">Don't save</system:String>
+
+    <!-- Profiles Menu -->
+    <system:String x:Key="ClearAllProfiles">🗑 Clear all profiles</system:String>
+    <system:String x:Key="ConfirmClearProfiles">Delete all saved profiles?</system:String>
+    <system:String x:Key="ConfirmTitle">Confirm</system:String>
+
+    <!-- About Window -->
+    <system:String x:Key="AboutTitle">About ADB Wireless Toolkit</system:String>
+    <system:String x:Key="AboutVersion">Version 1.0.0</system:String>
+    <system:String x:Key="AboutDescription">Modern GUI tool for wireless Android device management via ADB.\nNative WPF Windows 11 style interface with network scanning, pairing, sideload and manual terminal.</system:String>
+    <system:String x:Key="AboutAuthor">Developed by sqnym</system:String>
+    <system:String x:Key="AboutContact">Contact: sqnyps3@gmail.com (SUGGESTIONS AND BUGS ONLY)</system:String>
+    <system:String x:Key="AboutLicense">Dual License: MIT / GNU GPL v3</system:String>
+    <system:String x:Key="AboutClose">Close</system:String>
+
+    <!-- Settings -->
+    <system:String x:Key="Language">Language</system:String>
+    <system:String x:Key="Language_es_419">Español (Neutro)</system:String>
+    <system:String x:Key="Language_en_US">English (US)</system:String>
+    <system:String x:Key="Language_ru">Русский</system:String>
+    <system:String x:Key="Language_pt_BR">Português (Brasil)</system:String>
+    <system:String x:Key="Language_ja">日本語</system:String>
+    <system:String x:Key="Language_zh_Hans">中文 (简体)</system:String>
+
+</ResourceDictionary>

@@ -1,0 +1,112 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:system="clr-namespace:System;assembly=mscorlib">
+
+    <!-- メインウィンドウ -->
+    <system:String x:Key="AppTitle">ADB Wireless Toolkit</system:String>
+    <system:String x:Key="WirelessConnection">ワイヤレス接続</system:String>
+    <system:String x:Key="ScanNetwork">🌐 ローカルネットワークをスキャン (IP)</system:String>
+    <system:String x:Key="ScanMdns">🔍 mDNSスキャン (ネイティブ)</system:String>
+    <system:String x:Key="PairDevice">📱 デバイスをペアリング</system:String>
+    <system:String x:Key="LoadProfile">▼</system:String>
+    <system:String x:Key="LoadProfileTooltip">保存済みプロファイル (最大10)</system:String>
+    <system:String x:Key="HostPortLabel">HOST:PORT</system:String>
+    <system:String x:Key="HostPortTooltip">例: 192.168.1.100:5555</system:String>
+    <system:String x:Key="PairCodeLabel">ペアリングコード</system:String>
+    <system:String x:Key="PairCodeTooltip">デバイスに表示される6桁のコード</system:String>
+    <system:String x:Key="DevicesConnected">📋 接続済みデバイス</system:String>
+    <system:String x:Key="RestartServer">🔄 ADBサーバーを再起動</system:String>
+    
+    <system:String x:Key="DeviceManagement">デバイス管理</system:String>
+    <system:String x:Key="InstallApk">📲 APKをインストール</system:String>
+    <system:String x:Key="SideloadApk">📦 Sideload APK (USB)</system:String>
+    <system:String x:Key="TransferFile">📄 ファイル転送</system:String>
+    <system:String x:Key="RebootDevice">🔄 デバイス再起動 (システム)</system:String>
+    
+    <system:String x:Key="BackupTools">バックアップツール</system:String>
+    <system:String x:Key="OpenCmd">💻 外部CMDを開く</system:String>
+
+    <!-- コンソールとターミナル -->
+    <system:String x:Key="LogConsoleTitle">ログコンソール</system:String>
+    <system:String x:Key="ManualTerminal">マニュアルターミナル (直接ADBコマンド)</system:String>
+    <system:String x:Key="AdbPrefix">adb </system:String>
+    <system:String x:Key="RunCommand">実行</system:String>
+
+    <!-- 進捗 -->
+    <system:String x:Key="SpeedLabel">0 B/s</system:String>
+    <system:String x:Key="ProgressLabel">0%</system:String>
+
+    <!-- ダイアログとメッセージ -->
+    <system:String x:Key="ErrorEmptyCommand">[MANUAL] コマンドが空です。ADBコマンドを入力してください。</system:String>
+    <system:String x:Key="ErrorHostPortRequired">エラー: HOST:PORTを入力してください (例: 192.168.1.100:5555)</system:String>
+    <system:String x:Key="ErrorPairCodeRequired">エラー: ペアリングコードを入力してください (6桁)</system:String>
+    <system:String x:Key="ErrorPairCodeFormat">エラー: ペアリングコードは6桁の数字でなければなりません</system:String>
+    <system:String x:Key="ScanningNetwork">=== ローカルネットワークをスキャン中 (Ping .1-.99) ===</system:String>
+    <system:String x:Key="ScanningMdns">=== ネイティブmDNSスキャン (adb mdns services) ===</system:String>
+    <system:String x:Key="PairingDevice">=== デバイスをペアリング中: {0} ===</system:String>
+    <system:String x:Key="PairingCompleted">=== ペアリング完了 ===</system:String>
+    <system:String x:Key="GettingDevices">=== デバイス一覧を取得中 ===</system:String>
+    <system:String x:Key="DevicesObtained">=== デバイス一覧を取得しました ===</system:String>
+    <system:String x:Key="RestartingServer">=== ADBサーバーを再起動中 ===</system:String>
+    <system:String x:Key="StoppingServer">--- 手順1: サーバーを停止 (adb kill-server) ---</system:String>
+    <system:String x:Key="Waiting">--- 1秒待機 ---</system:String>
+    <system:String x:Key="StartingServer">--- 手順2: サーバーを開始 (adb start-server) ---</system:String>
+    <system:String x:Key="ServerRestarted">=== ADBサーバーの再起動が完了しました ===</system:String>
+    <system:String x:Key="InstallingApk">=== APKをインストール中: {0} ===</system:String>
+    <system:String x:Key="InstallCompleted">=== インストール完了 ===</system:String>
+    <system:String x:Key="SideloadStarting">=== Sideload APK開始: {0} ===</system:String>
+    <system:String x:Key="SideloadWarning">⚠ デバイスが 'Recovery' → 'Apply update from ADB' モードであることを確認してください</system:String>
+    <system:String x:Key="SideloadCompleted">=== Sideload完了 ===</system:String>
+    <system:String x:Key="TransferStarting">=== 転送中: {0} -> {1} ===</system:String>
+    <system:String x:Key="TransferCompleted">=== 転送完了 ===</system:String>
+    <system:String x:Key="Rebooting">=== デバイスを再起動中 (システム) ===</system:String>
+    <system:String x:Key="RebootInitiated">=== 再起動を開始しました ===</system:String>
+    <system:String x:Key="ManualCommand">[MANUAL] adb {0}</system:String>
+    <system:String x:Key="ManualCompleted">[MANUAL] コマンド完了。</system:String>
+    <system:String x:Key="OperationCancelled">=== 操作がキャンセルされました ===</system:String>
+    <system:String x:Key="ErrorPrefix">エラー: {0}</system:String>
+    <system:String x:Key="CmdOpened">[CMD] 外部コンソールを開きました: {0}</system:String>
+    <system:String x:Key="CmdError">[CMD] コンソールを開けません: {0}</system:String>
+    <system:String x:Key="CmdNotFound">[CMD] エラー: PlatformToolsが見つかりません: {0}</system:String>
+    <system:String x:Key="NoProfiles">[プロファイル] 保存済みプロファイルがありません。デバイスをペアリングしてプロファイルを保存してください。</system:String>
+    <system:String x:Key="ProfileLoaded">[プロファイル] 読み込み: {0}</system:String>
+    <system:String x:Key="ProfileSaved">[プロファイル] 保存: {0}</system:String>
+    <system:String x:Key="AllProfilesCleared">[プロファイル] すべてのプロファイルを削除しました</system:String>
+    <system:String x:Key="ScanCompleted">=== スキャン完了 ===</system:String>
+    <system:String x:Key="MdnsScanCompleted">=== mDNSスキャン完了 ===</system:String>
+
+    <!-- プロファイル保存ウィンドウ -->
+    <system:String x:Key="SaveProfileTitle">ペアリングプロファイルを保存</system:String>
+    <system:String x:Key="SaveProfileMessage">ペアリングに成功しました。このプロファイルを今後のために保存しますか？</system:String>
+    <system:String x:Key="SaveProfileDevice">デバイス: {0}</system:String>
+    <system:String x:Key="SaveProfileLimitWarning">⚠ 10プロファイルの上限に達しました。上書きするプロファイルを選択してください:</system:String>
+    <system:String x:Key="SaveProfileNameLabel">プロファイル名 (任意):</system:String>
+    <system:String x:Key="SaveProfileNameTooltip">空白の場合、HOST:PORTを名前として使用</system:String>
+    <system:String x:Key="SaveProfileOverwriteBtn">上書き</system:String>
+    <system:String x:Key="SaveProfileSaveBtn">保存</system:String>
+    <system:String x:Key="SaveProfileCancelBtn">保存しない</system:String>
+
+    <!-- プロファイルメニュー -->
+    <system:String x:Key="ClearAllProfiles">🗑 すべてのプロファイルを削除</system:String>
+    <system:String x:Key="ConfirmClearProfiles">すべての保存済みプロファイルを削除しますか？</system:String>
+    <system:String x:Key="ConfirmTitle">確認</system:String>
+
+    <!-- バージョン情報ウィンドウ -->
+    <system:String x:Key="AboutTitle">ADB Wireless Toolkit について</system:String>
+    <system:String x:Key="AboutVersion">バージョン 1.0.0</system:String>
+    <system:String x:Key="AboutDescription">ADBによるAndroidデバイスのワイヤレス管理のためのモダンGUIツール。\nWindows 11スタイルのネイティブWPFインターフェースで、ネットワークスキャン、ペアリング、Sideload、手動ターミナルを搭載。</system:String>
+    <system:String x:Key="AboutAuthor">開発者: sqnym</system:String>
+    <system:String x:Key="AboutContact">連絡先: sqnyps3@gmail.com (提案とバグのみ)</system:String>
+    <system:String x:Key="AboutLicense">デュアルライセンス: MIT / GNU GPL v3</system:String>
+    <system:String x:Key="AboutClose">閉じる</system:String>
+
+    <!-- 設定 -->
+    <system:String x:Key="Language">言語</system:String>
+    <system:String x:Key="Language_es_419">Español (Neutro)</system:String>
+    <system:String x:Key="Language_en_US">English (US)</system:String>
+    <system:String x:Key="Language_ru">Русский</system:String>
+    <system:String x:Key="Language_pt_BR">Português (Brasil)</system:String>
+    <system:String x:Key="Language_ja">日本語</system:String>
+    <system:String x:Key="Language_zh_Hans">中文 (简体)</system:String>
+
+</ResourceDictionary>
