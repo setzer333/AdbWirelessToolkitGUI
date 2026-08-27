@@ -60,7 +60,9 @@
 </ItemGroup>
 
 <ItemGroup>
-    <Content Include="assets\Android-Logo-2008.ico" />
+    <Content Include="assets\Android-Logo-2008.ico">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
 </ItemGroup>
 
 <ItemGroup>

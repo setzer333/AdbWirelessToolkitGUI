@@ -9,7 +9,7 @@
         WindowStartupLocation="CenterScreen"
         mc:Ignorable="d"
         Background="#1E1E1E"
-        Icon="Assets/Android-Logo-2008.ico">
+        Icon="pack://application:,,,/Assets/Android-Logo-2008.ico">
 
     <Window.Resources>
         <SolidColorBrush x:Key="CardBackgroundColor" Color="#252526"/>
