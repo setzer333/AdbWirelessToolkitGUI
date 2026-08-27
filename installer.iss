@@ -28,7 +28,7 @@ Compression=lzma2/ultra64
 SolidCompression=yes
 PrivilegesRequired=admin
 ArchitecturesInstallIn64BitMode=x64
-ArchitecturesAllowed=x64
+ArchitecturesAllowed=x64compatiblecompatible
 DisableProgramGroupPage=no
 AllowNoIcons=yes
 CreateAppDir=yes
@@ -153,8 +153,8 @@ begin
   Log('RUTA VC++ x64: ' + VCppX64Path);
   
   // Read user selections for .NET runtimes
-  DotNetX86Selected := WizardIsTaskSelected('dotnet_x86');
-  DotNetX64Selected := WizardIsTaskSelected('dotnet_x64');
+  DotNetX86Selected := WizardWizardIsTaskSelected('dotnet_x86');
+  DotNetX64Selected := WizardWizardIsTaskSelected('dotnet_x64');
 end;
 
 function IsDotNet8DesktopRuntimeInstalled(): Boolean;
@@ -438,7 +438,7 @@ begin
     end;
     
     // 2. Install VC++ Redistributable x86 if selected
-    if IsTaskSelected('vcpp_x86') then
+    if WizardIsTaskSelected('vcpp_x86') then
     begin
       if FileExists(VCppX86Path) then
       begin
@@ -467,7 +467,7 @@ begin
     end;
     
     // 3. Install VC++ Redistributable x64 if selected
-    if IsTaskSelected('vcpp_x64') then
+    if WizardIsTaskSelected('vcpp_x64') then
     begin
       if FileExists(VCppX64Path) then
       begin
@@ -501,7 +501,7 @@ function NeedRestart(): Boolean;
 begin
   // .NET 8 typically doesn't require restart, but VC++ might
   Result := False;
-  if WizardIsTaskSelected('vcpp_x86') or WizardIsTaskSelected('vcpp_x64') then
+  if WizardWizardIsTaskSelected('vcpp_x86') or WizardWizardIsTaskSelected('vcpp_x64') then
   begin
     Result := True;
   end;

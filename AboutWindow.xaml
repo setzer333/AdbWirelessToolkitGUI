@@ -9,7 +9,7 @@
         WindowStartupLocation="CenterOwner"
         ResizeMode="NoResize"
         Background="#1E1E1E"
-        Icon="Assets/Android-Logo-2008.ico"
+        Icon="pack://application:,,,/assets/Android-Logo-2008.ico"
         mc:Ignorable="d">
 
     <Window.Resources>
@@ -60,7 +60,7 @@
         <ScrollViewer VerticalScrollBarVisibility="Auto">
             <StackPanel Margin="25,20,25,20">
                 <!-- Logo -->
-                <Image Source="Assets/Android-Logo-2008.png" 
+                <Image Source="pack://application:,,,/assets/Android-Logo-2008.png" 
                        Width="80" Height="80" 
                        HorizontalAlignment="Center" 
                        Margin="0,10,0,10"/>

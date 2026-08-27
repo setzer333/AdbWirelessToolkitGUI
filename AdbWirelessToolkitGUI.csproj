@@ -60,9 +60,7 @@
 </ItemGroup>
 
 <ItemGroup>
-    <Content Include="assets\Android-Logo-2008.ico">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
+    <Resource Include="assets\Android-Logo-2008.ico" />
 </ItemGroup>
 
 <ItemGroup>
@@ -82,9 +80,8 @@
 </ItemGroup>
 
 <ItemGroup>
-    <None Update="assets\Android-Logo-2008.png">
-      <Pack>True</Pack>
-      <PackagePath>\</PackagePath>
+    <None Update="Languages\**\*.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="assets\LICENSE-GPL3.rtf">
       <Pack>True</Pack>
