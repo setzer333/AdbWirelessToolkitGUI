@@ -5,6 +5,8 @@ VisualStudioVersion = 17.14.37531.7
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdbWirelessToolkitGUI", "AdbWirelessToolkitGUI.csproj", "{1299FE84-30FD-4DCF-8C0F-A065347E5733}"
 EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "AdbWirelessToolkitGUI_Installer", "..\AdbWirelessToolkitGUI_Installer\AdbWirelessToolkitGUI_Installer.vdproj", "{DBB2FE7C-DBCF-F022-FF2C-419DF081AE4A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,12 @@ Global
 		{1299FE84-30FD-4DCF-8C0F-A065347E5733}.Release|x64.Build.0 = Debug|x64
 		{1299FE84-30FD-4DCF-8C0F-A065347E5733}.Release|x86.ActiveCfg = Release|x86
 		{1299FE84-30FD-4DCF-8C0F-A065347E5733}.Release|x86.Build.0 = Release|x86
+		{DBB2FE7C-DBCF-F022-FF2C-419DF081AE4A}.Debug|Any CPU.ActiveCfg = Debug
+		{DBB2FE7C-DBCF-F022-FF2C-419DF081AE4A}.Debug|x64.ActiveCfg = Debug
+		{DBB2FE7C-DBCF-F022-FF2C-419DF081AE4A}.Debug|x86.ActiveCfg = Debug
+		{DBB2FE7C-DBCF-F022-FF2C-419DF081AE4A}.Release|Any CPU.ActiveCfg = Release
+		{DBB2FE7C-DBCF-F022-FF2C-419DF081AE4A}.Release|x64.ActiveCfg = Release
+		{DBB2FE7C-DBCF-F022-FF2C-419DF081AE4A}.Release|x86.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

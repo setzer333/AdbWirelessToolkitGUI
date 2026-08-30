@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AdbWirelessToolkitGUI"
-        Title="{DynamicResource AboutTitle}"
+Title="{DynamicResource AboutTitle}"
         Height="480" Width="420"
         WindowStartupLocation="CenterOwner"
         ResizeMode="NoResize"
@@ -59,7 +59,7 @@
     <Border Background="#252526" Margin="10" CornerRadius="8">
         <ScrollViewer VerticalScrollBarVisibility="Auto">
             <StackPanel Margin="25,20,25,20">
-                <!-- Logo -->
+<!-- Logo -->
                 <Image Source="pack://application:,,,/assets/Android-Logo-2008.png" 
                        Width="80" Height="80" 
                        HorizontalAlignment="Center" 

@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-<PropertyGroup>
+  <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <TargetFramework>net8.0-windows</TargetFramework>
     <Nullable>enable</Nullable>
@@ -22,132 +22,68 @@
     <Title>AdbWirelessToolkitGUI</Title>
     <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
     <PackageLicenseFile>Combined-License_2.txt</PackageLicenseFile>
-    <!-- Configuraciones de compilación multi-plataforma -->
     <Platforms>AnyCPU;x86;x64</Platforms>
     <RuntimeIdentifiers>win-x86;win-x64;win-arm64</RuntimeIdentifiers>
-</PropertyGroup>
+  </PropertyGroup>
 
-<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x86'">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x86'">
     <PlatformTarget>x86</PlatformTarget>
     <SelfContained>true</SelfContained>
     <PublishSingleFile>true</PublishSingleFile>
     <RuntimeIdentifier>win-x86</RuntimeIdentifier>
     <PublishTrimmed>false</PublishTrimmed>
-</PropertyGroup>
+  </PropertyGroup>
 
-<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <PlatformTarget>x64</PlatformTarget>
     <SelfContained>true</SelfContained>
     <PublishSingleFile>true</PublishSingleFile>
     <RuntimeIdentifier>win-x64</RuntimeIdentifier>
     <PublishTrimmed>false</PublishTrimmed>
-</PropertyGroup>
+  </PropertyGroup>
 
-<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <PlatformTarget>AnyCPU</PlatformTarget>
     <SelfContained>true</SelfContained>
     <PublishSingleFile>true</PublishSingleFile>
     <RuntimeIdentifier>win-x64</RuntimeIdentifier>
     <PublishTrimmed>false</PublishTrimmed>
-</PropertyGroup>
+  </PropertyGroup>
 
-<ItemGroup>
-    <!-- Incluye TODOS los archivos del SDK PlatformTools (binarios, DLLs, configs) -->
-    <Content Include="PlatformTools\**\*">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      <Visible>false</Visible>
-    </Content>
-</ItemGroup>
+  <ItemGroup>
+    <Resource Include="assets\Android-Logo-2008.ico" />
+    <Resource Include="assets\Android-Logo-2008.png" />
+  </ItemGroup>
 
-<ItemGroup>
-    <Content Include="assets\Android-Logo-2008.ico">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="assets\Android-Logo-2008.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="assets\Combined-License_2.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="assets\VC_redist.x64.exe">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="assets\VC_redist.x86.exe">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="assets\windowsdesktop-runtime-8.0.30-win-x64.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="assets\windowsdesktop-runtime-8.0.30-win-x86.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Languages\en-US.xaml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Languages\es-419.xaml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Languages\ja.xaml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Languages\pt-BR.xaml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Languages\ru.xaml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Languages\zh-Hans.xaml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-</ItemGroup>
-
-<ItemGroup>
-    <!-- Include RUNTIME assets (VC++ redistributables and .NET runtime URLs) -->
-    <Content Include="assets\RUNTIME\**\*">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      <Visible>false</Visible>
-    </Content>
-</ItemGroup>
-
-<ItemGroup>
-  <None Remove="assets\Android-Logo-2008.png" />
-  <None Remove="assets\Combined-License_2.txt" />
-  <None Remove="assets\VC_redist.x64.exe" />
-  <None Remove="assets\VC_redist.x86.exe" />
-  <None Remove="assets\windowsdesktop-runtime-8.0.30-win-x64.txt" />
-  <None Remove="assets\windowsdesktop-runtime-8.0.30-win-x86.txt" />
-</ItemGroup>
-
-<ItemGroup>
-  <Page Remove="Languages\en-US.xaml" />
-  <Page Remove="Languages\es-419.xaml" />
-  <Page Remove="Languages\ja.xaml" />
-  <Page Remove="Languages\pt-BR.xaml" />
-  <Page Remove="Languages\ru.xaml" />
-  <Page Remove="Languages\zh-Hans.xaml" />
-</ItemGroup>
-
-<ItemGroup>
-    <Compile Update="Properties\Settings.Designer.cs">
-      <DesignTimeSharedInput>True</DesignTimeSharedInput>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Settings.settings</DependentUpon>
-    </Compile>
-</ItemGroup>
-
-<ItemGroup>
-    <None Update="Languages\**\*.xaml">
+  <ItemGroup>
+    <None Update="LANGUAGES\**\*.xaml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="assets\LICENSE-GPL3.rtf">
+    <None Update="assets\**\*.*">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="PlatformTools\**\*.*">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="assets\RUNTIME\**\*">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="assets\LICENCES\LICENSE-GPL3.rtf">
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
     </None>
-    <None Update="assets\LICENSE-MIT.rtf">
+    <None Update="assets\LICENCES\LICENSE-MIT.rtf">
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
     </None>
-    <None Update="Combined-License_2.txt">
+    <None Update="assets\LICENCES\Combined-License_2.txt">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+    <None Update="README.md">
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
     </None>
@@ -155,31 +91,18 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-    <None Update="README.md">
-      <Pack>True</Pack>
-      <PackagePath>\</PackagePath>
-    </None>
-</ItemGroup>
+  </ItemGroup>
 
-<!-- Include PlatformTools and RUNTIME assets in publish output -->
-<Target Name="CopyPlatformToolsToPublish" AfterTargets="Publish" BeforeTargets="BuildInstaller" Condition="'$(Configuration)' == 'Release'">
-    <ItemGroup>
-      <PlatformToolsFiles Include="PlatformTools\**\*" />
-      <AssetsFiles Include="Assets\**\*" />
-      <RuntimeFiles Include="assets\RUNTIME\**\*" />
-    </ItemGroup>
-    <Copy SourceFiles="@(PlatformToolsFiles)" DestinationFolder="$(PublishDir)PlatformTools\%(RecursiveDir)" SkipUnchangedFiles="true" />
-    <Copy SourceFiles="@(AssetsFiles)" DestinationFolder="$(PublishDir)Assets\%(RecursiveDir)" SkipUnchangedFiles="true" />
-    <Copy SourceFiles="@(RuntimeFiles)" DestinationFolder="$(PublishDir)RUNTIME\%(RecursiveDir)" SkipUnchangedFiles="true" />
-</Target>
+  <ItemGroup>
+    <Compile Update="Properties\Settings.Designer.cs">
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+  </ItemGroup>
 
-<!-- Post-build event: Build Inno Setup installer on Release configuration -->
-<Target Name="BuildInstaller" AfterTargets="Publish" Condition="'$(Configuration)' == 'Release'">
-    <PropertyGroup>
-      <ISCCPath>"C:\Program Files\Inno Setup 7\ISCC.exe"</ISCCPath>
-      <IssPath>$(ProjectDir)Installer\installer.iss</IssPath>
-    </PropertyGroup>
-    <Exec Command="$(ISCCPath) $(IssPath)" WorkingDirectory="$(ProjectDir)Installer" />
-</Target>
+  <Target Name="BuildInstaller" AfterTargets="Publish">
+    <Exec Command="&quot;C:\Program Files\Inno Setup 7\ISCC.exe&quot; &quot;$(MSBuildProjectDirectory)\Installer\installer.iss&quot;" />
+  </Target>
 
 </Project>
