@@ -37,7 +37,7 @@
 | **Progreso en Tiempo Real** | Regex robusto captura porcentajes de `adb push`, `adb sideload`, `adb install` |
 | **Terminal Manual** | Ejecuta cualquier comando ADB raw con autocompletado de prefijo `adb` |
 | **CMD Externo** | Abre consola nativa en `PlatformTools/` para control total de emergencia |
-| **Dual License** | MIT (permisiva) o GNU GPL v3 (copyleft) — Elige una |
+| **Dual License** | MIT  y GNU GPL v3 |
 | **Auto-Elevación UAC** | Instalador requiere admin; app se ejecuta como usuario normal |
 | **Telemetría de Errores** | Logging automático de excepciones no controladas en `AdbWirelessToolkitGUI_Log.txt` |
 
