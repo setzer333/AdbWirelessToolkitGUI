@@ -37,7 +37,7 @@
 | **Progreso en Tiempo Real** | Regex robusto captura porcentajes de `adb push`, `adb sideload`, `adb install` |
 | **Terminal Manual** | Ejecuta cualquier comando ADB raw con autocompletado de prefijo `adb` |
 | **CMD Externo** | Abre consola nativa en `PlatformTools/` para control total de emergencia |
-| **Dual License** | MIT  y GNU GPL v3 |
+| **MIT License** | MIT |
 | **Auto-Elevación UAC** | Instalador requiere admin; app se ejecuta como usuario normal |
 | **Telemetría de Errores** | Logging automático de excepciones no controladas en `AdbWirelessToolkitGUI_Log.txt` |
 
@@ -63,27 +63,9 @@
 ---
 
 ## 🛠 Cómo Compilar
-
-### Opción A: Usando Makefile (Recomendado)
-
-```bash
-# Compilar en modo Debug
-make build
-
-# Publicar Self-Contained Single-File para x64
-make publish-x64
-
-# Publicar Self-Contained Single-File para x86
-make publish-x86
-
-# Limpiar artefactos
-make clean
-
-# Generar instalador MSI (requiere WiX Toolset)
-make installer
 ```
 
-### Opción B: Comandos `dotnet` Directos
+Comandos `dotnet` Directos
 
 ```bash
 # Restaurar dependencias
@@ -123,7 +105,6 @@ publish/win-x64/
 │   ├── Android-Logo-2008.ico
 │   ├── Android-Logo-2008.png
 │   ├── Combined-License_2.txt
-│   ├── LICENSE-GPL3.rtf
 │   └── LICENSE-MIT.rtf
 └── RUNTIME/                           # Dependencias opcionales
     ├── VC_redist.x86.exe
@@ -134,23 +115,14 @@ publish/win-x64/
 
 ---
 
-## 📦 Crear Instalador (WiX Toolset)
 
-1. Instala [WiX Toolset v7+](https://wixtoolset.org/releases/)
-2. Compila en Release para x64: `dotnet publish -c Release -r win-x64 --self-contained true -p:PublishSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=true -p:PublishTrimmed=false -o ./publish/win-x64`
-3. Compila el proyecto WiX: `dotnet build AdbWirelessToolkitGUI_Installer_Wix/AdbWirelessToolkitGUI_Installer.wixproj -c Release -p:SourceDir=../AdbWirelessToolkitGUI/publish/win-x64`
-4. El instalador se genera en `AdbWirelessToolkitGUI_Installer_Wix/bin/Release/AdbWirelessToolkitGUI_Setup.msi`
-
-### El instalador MSI incluye:
-- ✅ **EULA con licencia dual (MIT/GPLv3)** usando `Combined-License_2.txt`
+### El instalador incluye:
+- ✅ **EULA con licencia dual (MIT/GPLv3)** usando
 - ✅ Instala en `Program Files\AdbWirelessToolkitGUI`
 - ✅ Incluye `PlatformTools/` completo
-- ✅ **Pantalla de dependencias con 4 checkboxes**:
-  - [ ] Visual C++ Redistributable (x86)
+- ✅ **Pantalla de dependencias con checkboxes**:
   - [ ] Visual C++ Redistributable (x64)
-  - [ ] .NET 8.0.30 Desktop Runtime (x86)
   - [ ] .NET 8.0.30 Desktop Runtime (x64)
-- ✅ Descarga automática de .NET 8.0.30 desde servidores oficiales de Microsoft
 - ✅ Instalación silenciosa de VC++ Redistributables (x86/x64)
 - ✅ Crea accesos directos en Menú Inicio y Escritorio (opcional)
 - ✅ Registra desinstalador en Windows
@@ -223,53 +195,6 @@ publish/win-x64/
 
 ---
 
-## 📁 Estructura del Proyecto
-
-```
-AdbWirelessToolkitGUI/
-├── AdbWirelessToolkitGUI.csproj              # Proyecto .NET 8 WPF
-├── AdbWirelessToolkitGUI.sln                 # Solución
-├── MainWindow.xaml                           # UI principal (Windows 11 style)
-├── MainWindow.xaml.cs                        # Code-behind + lógica de comandos
-├── App.xaml.cs                               # Punto de entrada + logging global + excepciones
-├── App.xaml                                  # Recursos globales + idiomas
-├── AdbEngine.cs                              # Motor ADB asíncrono + escáner red + mDNS
-├── ProfileManager.cs                         # Gestión de perfiles (JSON en AppData)
-├── AboutWindow.xaml / .cs                    # Ventana "Acerca de"
-├── app.manifest                              # UAC asInvoker (app sin admin)
-├── PlatformTools/                            # Binarios ADB (incluidos en build)
-│   ├── adb.exe
-│   ├── AdbWinApi.dll
-│   ├── AdbWinUsbApi.dll
-│   ├── fastboot.exe
-│   └── ...
-├── Assets/                                   # Iconos y licencias
-│   ├── Android-Logo-2008.ico
-│   ├── Android-Logo-2008.png
-│   ├── LICENSE-GPL3.rtf
-│   ├── LICENSE-MIT.rtf
-│   └── Combined-License_2.txt
-├── assets/RUNTIME/                           # Dependencias empaquetadas
-│   ├── VC_redist.x86.exe
-│   ├── VC_redist.x64.exe
-│   ├── windowsdesktop-runtime-8.0.30-win-x86.txt
-│   └── windowsdesktop-runtime-8.0.30-win-x64.txt
-├── LICENSE-MIT.txt                           # Licencia MIT
-├── LICENSE-GPL3.txt                          # Licencia GNU GPL v3
-├── Combined-License_2.txt                    # Licencia dual unificada (EULA)
-├── README.md                                 # Este archivo
-├── Makefile                                  # Comandos de build estandarizados
-└── AdbWirelessToolkitGUI_Installer_Wix/      # Instalador MSI (WiX Toolset)
-    ├── Product.wxs                           # Definición principal del producto
-    ├── Features.wxs                          # Definición de características
-    ├── Files.wxs                             # Archivos a instalar
-    ├── Dependencies.wxs                      # Dependencias (VC++, .NET)
-    ├── UI.wxs                                # UI personalizada con 4 checkboxes
-    └── AdbWirelessToolkitGUI_Installer.wixproj
-```
-
----
-
 ## 🔧 Arquitectura Técnica
 
 ### Motor ADB (`AdbEngine.cs`)
@@ -284,7 +209,7 @@ AdbWirelessToolkitGUI/
 ### UI (`MainWindow.xaml` + `.cs`)
 - **Grid 2 columnas**: Panel acciones (izq) + Consola/Terminal (der)
 - **ProgressBar + Labels**: Progreso % y velocidad en footer
-- **Estilos Windows 11**: Colores `#1E1E1E`/`#252526`/`#3A3A3C`, acento `#0078D4`
+
 - **Botones con Template**: Hover/Pressed/Disabled states customizados
 
 ### Sistema de Logging Global (`App.xaml.cs`)
@@ -299,12 +224,11 @@ AdbWirelessToolkitGUI/
 
 ---
 
-## 📄 Licencia Dual
+## 📄 Licencia MIT
 
-Este proyecto se distribuye bajo **licencia dual**. Puedes elegir **UNA** de las siguientes:
+Este proyecto se distribuye bajo **licencia MIT**.:
 
 ### 🅰️ Licencia MIT (Permisiva)
-- Uso comercial ✅
 - Modificación ✅
 - Distribución ✅
 - Uso privado ✅
@@ -320,10 +244,8 @@ Este proyecto se distribuye bajo **licencia dual**. Puedes elegir **UNA** de las
 - **Misma licencia** para derivados
 - Ver: [`LICENSE-GPL3.txt`](LICENSE-GPL3.txt)
 
-> **Archivo unificado para instaladores**: [`Combined-License_2.txt`](Combined-License_2.txt)
 
 ---
-
 ## 🤝 Contribuir
 
 1. Fork del repositorio
@@ -359,7 +281,7 @@ Plantillas disponibles:
 - **.NET Foundation** - Runtime y WPF
 - **WiX Toolset** - Rob Mensching - Instalador MSI profesional
 - **Comunidad Open Source** - Inspiración y feedback
-
+- **Inno Setup** team - instalador .exe
 ---
 
 ## 📞 Contacto
@@ -370,10 +292,8 @@ Plantillas disponibles:
 
 ---
 
-<div align="center">
-
 **¿Te gusta el proyecto? ¡Dale una ⭐ en GitHub!**
 
-Hecho con ❤️ para la comunidad de desarrolladores Android
+Hecho con ❤️ para la comunidad de desarrolladores Android y usuarios que se les hace complicado instalar apks mediante sideload.
 
 </div>
