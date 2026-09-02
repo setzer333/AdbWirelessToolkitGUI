@@ -296,4 +296,6 @@ Plantillas disponibles:
 
 Hecho con ❤️ para la comunidad de desarrolladores Android y usuarios que se les hace complicado instalar apks mediante sideload.
 
+Además es mi primer proyecto publicado :)
+
 </div>
